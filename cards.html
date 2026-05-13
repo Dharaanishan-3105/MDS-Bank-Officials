@@ -1,0 +1,158 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MDS Bank Credit Cards &#8212; Cashback Plus, Voyager Rewards, and Student Begin. Find the perfect card." />
+  <title>Credit Cards | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="apply.html" class="btn btn-outline" data-track="cta_click" data-event="apply_now_click" data-category="header" data-label="Apply Now">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary" data-track="cta_click" data-event="login_click" data-category="header" data-label="Login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding: 4rem 5%; background: linear-gradient(135deg, var(--dark-bg), #0F2744);">
+      <div class="hero-container">
+        <div class="hero-content text-center" style="margin:0 auto;">
+          <h1>Credit Cards</h1>
+          <p style="margin:0 auto;">Find the perfect card to match your lifestyle and maximize your rewards.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:3rem; flex-wrap:wrap;">
+        <button class="btn btn-primary" id="filter-all" onclick="filterCards('all')">All Cards</button>
+        <button class="btn btn-outline" id="filter-rewards" onclick="filterCards('rewards')">Cashback & Rewards</button>
+        <button class="btn btn-outline" id="filter-travel" onclick="filterCards('travel')">Travel</button>
+      </div>
+      <div class="grid-3" id="cards-container">
+        <div class="feature-card card-item reveal" data-category="rewards" style="text-align:left;">
+          <div class="mock-card" style="width:100%; height:180px; transform:none; margin-bottom:1.5rem; background:linear-gradient(135deg, #E74C3C, #C0392B);">
+            <div class="card-top"><span style="font-family:'Space Grotesk',sans-serif; font-weight:700;">Cashback Plus</span><div class="card-chip"></div></div>
+          </div>
+          <h3>Cashback Plus</h3>
+          <p class="mb-3">Earn unlimited 2% cash back on every purchase, everywhere.</p>
+          <div style="display:flex; justify-content:space-between; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);">
+            <div><strong style="display:block;">$0</strong><span style="font-size:0.8rem; color:var(--text-muted);">Annual Fee</span></div>
+            <div><strong style="display:block;">18.99%</strong><span style="font-size:0.8rem; color:var(--text-muted);">Variable APR</span></div>
+          </div>
+          <a href="apply.html?product=cashback-card" class="btn btn-outline" id="apply-cashback" style="width:100%; text-align:center;">Apply Now</a>
+        </div>
+        <div class="feature-card card-item reveal" data-category="travel" style="text-align:left; border-color:var(--primary);">
+          <div class="mock-card" style="width:100%; height:180px; transform:none; margin-bottom:1.5rem; background:linear-gradient(135deg, var(--primary), var(--accent));">
+            <div class="card-top"><span style="font-family:'Space Grotesk',sans-serif; font-weight:700;">Voyager Rewards</span><div class="card-chip"></div></div>
+          </div>
+          <h3>Voyager Rewards</h3>
+          <p class="mb-3">Earn 3x points on dining and travel. No foreign transaction fees.</p>
+          <div style="display:flex; justify-content:space-between; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);">
+            <div><strong style="display:block;">$95</strong><span style="font-size:0.8rem; color:var(--text-muted);">Annual Fee</span></div>
+            <div><strong style="display:block;">19.99%</strong><span style="font-size:0.8rem; color:var(--text-muted);">Variable APR</span></div>
+          </div>
+          <a href="apply.html?product=travel-card" class="btn btn-primary" id="apply-voyager" style="width:100%; text-align:center;">Apply Now</a>
+        </div>
+        <div class="feature-card card-item reveal" data-category="rewards" style="text-align:left;">
+          <div class="mock-card" style="width:100%; height:180px; transform:none; margin-bottom:1.5rem; background:linear-gradient(135deg, #2C3E50, #1A252F);">
+            <div class="card-top"><span style="font-family:'Space Grotesk',sans-serif; font-weight:700;">Student Begin</span><div class="card-chip"></div></div>
+          </div>
+          <h3>Student Begin</h3>
+          <p class="mb-3">Build your credit history while earning rewards for good grades.</p>
+          <div style="display:flex; justify-content:space-between; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border-light);">
+            <div><strong style="display:block;">$0</strong><span style="font-size:0.8rem; color:var(--text-muted);">Annual Fee</span></div>
+            <div><strong style="display:block;">24.99%</strong><span style="font-size:0.8rem; color:var(--text-muted);">Variable APR</span></div>
+          </div>
+          <a href="apply.html?product=student-card" class="btn btn-outline" id="apply-student" style="width:100%; text-align:center;">Apply Now</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    function filterCards(category) {
+      var cards = document.querySelectorAll('.card-item');
+      cards.forEach(function(card) {
+        card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+      });
+      var btns = document.querySelectorAll('button[onclick^="filterCards"]');
+      btns.forEach(function(btn) {
+        btn.className = btn.getAttribute('onclick').includes(category) ? 'btn btn-primary' : 'btn btn-outline';
+      });
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+

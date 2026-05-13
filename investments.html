@@ -1,0 +1,170 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MDS Bank Investments &#8212; Automated robo-advisor portfolios and self-directed trading." />
+  <title>Investments | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="apply.html" class="btn btn-outline" data-track="cta_click" data-event="apply_now_click" data-category="header" data-label="Apply Now">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary" data-track="cta_click" data-event="login_click" data-category="header" data-label="Login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding: 4rem 5%;">
+      <div class="hero-container">
+        <div class="hero-content text-center" style="margin:0 auto;">
+          <h1>Invest in Your Future</h1>
+          <p style="margin:0 auto;">From automated portfolios to self-directed trading. We give you the tools to grow your wealth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid-2">
+        <div class="feature-card reveal" style="text-align:left; border-color:var(--primary);">
+          <div class="icon-box" style="margin: 0 0 1.5rem 0;">&#128200;</div>
+          <h3>Automated Investing (Robo)</h3>
+          <p class="mb-3">Answer a few questions about your risk tolerance, and we'll build and manage a diversified portfolio for you.</p>
+          <a href="apply.html?product=robo-advisor" class="btn btn-primary" id="start-robo">Start Automated Portfolio</a>
+        </div>
+        <div class="feature-card reveal" style="text-align:left;">
+          <div class="icon-box" style="margin: 0 0 1.5rem 0;">&#128200;</div>
+          <h3>Self-Directed Trading</h3>
+          <p class="mb-3">Trade stocks, ETFs, and options commission-free. Access real-time data and advanced charting tools.</p>
+          <a href="apply.html?product=brokerage" class="btn btn-outline" id="open-brokerage">Open Brokerage Account</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--light-card);">
+      <div class="grid-2 align-items-center">
+        <div class="reveal">
+          <h2>Discover your Risk Profile</h2>
+          <p class="mb-3">Understanding how much risk you can handle is the first step to successful investing.</p>
+          <div class="form-group mb-3">
+            <label class="form-label">How would you describe your investment knowledge?</label>
+            <select class="form-control" id="risk-knowledge">
+              <option>Beginner (I'm just starting out)</option>
+              <option>Intermediate (I know the basics of stocks/bonds)</option>
+              <option>Advanced (I actively trade and research)</option>
+            </select>
+          </div>
+          <div class="form-group mb-4">
+            <label class="form-label">When do you need to withdraw a significant portion?</label>
+            <select class="form-control" id="risk-timeline">
+              <option>Less than 3 years</option>
+              <option>3 to 7 years</option>
+              <option>More than 7 years</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="risk-profile-btn" onclick="handleRiskProfile()">See Suggestion</button>
+        </div>
+        <div class="dash-card reveal" style="background:var(--dark-bg); color:white;">
+          <h3 style="color:var(--accent); margin-bottom:1rem;">Market Education</h3>
+          <p style="color:rgba(255,255,255,0.6); margin-bottom:1.5rem;">Learn from the experts at leading financial institutions.</p>
+          <ul style="list-style:none; padding:0;">
+            <li style="margin-bottom:1rem;">
+              <a href="https://www.investopedia.com/" target="_blank" id="link-investopedia" style="color:white; text-decoration:none; display:flex; justify-content:space-between; align-items:center; padding-bottom:1rem; border-bottom:1px solid var(--border-dark);">Investopedia Basics <span>&nearr;</span></a>
+            </li>
+            <li>
+              <a href="https://www.wsj.com/market-data" target="_blank" id="link-wsj" style="color:white; text-decoration:none; display:flex; justify-content:space-between; align-items:center; padding-bottom:1rem; border-bottom:1px solid var(--border-dark);">WSJ Market Data <span>&nearr;</span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    function handleRiskProfile() {
+      var knowledge = document.getElementById('risk-knowledge');
+      var timeline = document.getElementById('risk-timeline');
+      var profile = 'Balanced Growth';
+      if (knowledge && timeline) {
+        var k = knowledge.selectedIndex, t = timeline.selectedIndex;
+        if (k === 0 && t === 0) profile = 'Conservative';
+        else if (k === 2 && t === 2) profile = 'Aggressive Growth';
+        else if (t === 2) profile = 'Growth';
+        else if (t === 0) profile = 'Conservative';
+      }
+      alert('Your suggested profile is: ' + profile);
+
+    }
+  </script>
+</body>
+</html>
+
+
+
+

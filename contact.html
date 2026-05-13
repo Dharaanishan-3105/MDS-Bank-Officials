@@ -1,0 +1,205 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Contact MDS Bank &#8212; Get in touch with our support team via phone, email, or our contact form." />
+  <title>Contact Us | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="apply.html" class="btn btn-outline">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary">Login</a>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding: 4rem 5%;">
+      <div class="hero-container">
+        <div class="hero-content text-center" style="margin:0 auto; max-width:700px;">
+          <h1>Get in Touch</h1>
+          <p style="margin:0 auto;">We're here to help. Reach out to us through any of the channels below.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid-3 mb-4">
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#9742;</div>
+          <h3>Call Us</h3>
+          <p style="color:var(--text-muted);">Available 24/7 for urgent matters</p>
+          <a href="tel:+18005551234" style="color:var(--primary); font-weight:700; font-size:1.2rem; text-decoration:none; font-family:'Space Grotesk',sans-serif;">1-800-555-1234</a>
+        </div>
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#9993;</div>
+          <h3>Email Us</h3>
+          <p style="color:var(--text-muted);">Response within 24 hours</p>
+          <a href="mailto:support@mdsbank.com" style="color:var(--primary); font-weight:600; text-decoration:none;">support@mdsbank.com</a>
+        </div>
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#127970;</div>
+          <h3>Visit Us</h3>
+          <p style="color:var(--text-muted);">Headquarters</p>
+          <span style="color:var(--primary); font-weight:600;">200 Park Avenue, New York, NY 10166</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="background:var(--light-card);">
+      <div class="grid-2" style="align-items:start;">
+        <div class="reveal">
+          <div class="section-title" style="text-align:left; margin-bottom:2rem;">
+            <h2>Send Us a Message</h2>
+          </div>
+          <form id="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" class="form-control" id="contact-name" required placeholder="Your full name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" class="form-control" id="contact-email" required placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="contact-phone" placeholder="(555) 000-0000">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Topic *</label>
+              <select class="form-control" id="contact-topic" required>
+                <option value="">Select a topic...</option>
+                <option value="Account Inquiry">Account Inquiry</option>
+                <option value="Card Services">Card Services</option>
+                <option value="Loan Information">Loan Information</option>
+                <option value="Technical Support">Technical Support</option>
+                <option value="Fraud Report">Report Fraud</option>
+                <option value="General Feedback">General Feedback</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message *</label>
+              <textarea class="form-control" id="contact-message" rows="5" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" id="send-message-btn" style="width:100%;">Send Message</button>
+          </form>
+        </div>
+
+        <div class="reveal">
+          <div class="dash-card mb-3">
+            <h3 class="mb-3">Business Hours</h3>
+            <table style="width:100%; border-collapse:collapse;">
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:0.8rem 0; font-weight:500;">Monday &#8211; Friday</td>
+                <td style="text-align:right; color:var(--accent); font-weight:600;">8:00 AM &#8211; 8:00 PM EST</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border-light);">
+                <td style="padding:0.8rem 0; font-weight:500;">Saturday</td>
+                <td style="text-align:right; color:var(--accent); font-weight:600;">9:00 AM &#8211; 5:00 PM EST</td>
+              </tr>
+              <tr>
+                <td style="padding:0.8rem 0; font-weight:500;">Sunday</td>
+                <td style="text-align:right; color:var(--text-muted); font-weight:600;">Closed</td>
+              </tr>
+            </table>
+          </div>
+          <div class="dash-card mb-3">
+            <h3 class="mb-3">Quick Links</h3>
+            <ul style="list-style:none; padding:0;">
+              <li class="mb-2"><a href="support.html" style="color:var(--primary); text-decoration:none; font-weight:500;">&#128209; Help Center & FAQs</a></li>
+              <li class="mb-2"><a href="#" class="download-link" style="color:var(--primary); text-decoration:none; font-weight:500;">&#128209; Download Fee Schedule (PDF)</a></li>
+              <li class="mb-2"><a href="#" class="download-link" style="color:var(--primary); text-decoration:none; font-weight:500;">&#128209; Download Account Agreement (PDF)</a></li>
+            </ul>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-outline" id="live-chat-btn" style="width:100%;" onclick="handleLiveChat()">&#128172; Start Live Chat</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      var topic = document.getElementById('contact-topic');
+
+      alert('Thank you! Your message has been sent. We will respond within 24 hours.');
+      e.target.reset();
+    }
+    function handleLiveChat() {
+      alert('Demo: Live chat initiated. A representative will be with you shortly.');
+    }
+
+  </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,287 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Apply for an MDS Bank account, credit card, or loan." />
+  <title>Application | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body style="background: var(--light-bg);">
+
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="apply.html" class="btn btn-outline">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary">Login</a>
+
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 4rem 5%;">
+    <div style="max-width:700px; margin:0 auto;" class="form-container">
+      <div class="section-title" style="text-align:left; margin-bottom:2rem;">
+        <h2 style="font-size:2rem;">Complete your application</h2>
+      </div>
+      <div class="step-indicator">
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+      </div>
+      <div class="dash-card">
+        <div class="form-step active">
+          <h3 class="mb-4">Personal Details</h3>
+          <div class="form-group"><label class="form-label">Full Name *</label><input type="text" id="name" class="form-control" required placeholder="John Doe"><span class="error-msg"></span></div>
+          <div class="form-group"><label class="form-label">Email Address *</label><input type="email" id="email" class="form-control" required placeholder="john@example.com"><span class="error-msg"></span></div>
+          <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="phone" class="form-control" required placeholder="(555) 000-0000"><span class="error-msg"></span></div>
+          <div class="form-group"><label class="form-label">Age *</label><input type="number" id="age" class="form-control" required min="18" placeholder="Must be 18+"><span class="error-msg"></span></div>
+          <div style="display:flex; justify-content:flex-end;"><button class="btn btn-primary btn-next" id="step1-next">Next Step &rarr;</button></div>
+        </div>
+        <div class="form-step">
+          <h3 class="mb-4">Product Selection</h3>
+          <div class="form-group"><label class="form-label">What are you applying for? *</label>
+            <select id="product" class="form-control" required>
+              <option value="">Select a product...</option>
+              <option value="Savings Account">High-Yield Savings</option>
+              <option value="Checking Account">Everyday Checking</option>
+              <option value="Travel Credit Card">Voyager Rewards Card</option>
+              <option value="Cashback Credit Card">Cashback Plus Card</option>
+              <option value="Personal Loan">Personal Loan</option>
+            </select><span class="error-msg"></span>
+          </div>
+          <div class="form-group"><label class="form-label">Expected initial deposit / credit limit *</label><input type="number" id="amount" class="form-control" required placeholder="e.g., 5000"><span class="error-msg"></span></div>
+          <div style="display:flex; justify-content:space-between;"><button class="btn btn-outline btn-prev" id="step2-prev">&larr; Back</button><button class="btn btn-primary btn-next" id="step2-next">Next Step &rarr;</button></div>
+        </div>
+        <div class="form-step">
+          <h3 class="mb-4">Documents & Preferences</h3>
+          <div class="form-group"><label class="form-label">Upload ID *</label><input type="file" id="document" class="form-control" required><span class="error-msg"></span></div>
+          <div class="form-group"><label class="form-label">Preferred Communication</label>
+            <select id="communication" class="form-control"><option value="Email">Email</option><option value="Phone">Phone</option><option value="Text">Text Message</option></select>
+          </div>
+          <div class="form-group" style="display:flex; align-items:flex-start; gap:10px;">
+            <input type="checkbox" id="consent" required style="margin-top:5px;">
+            <label for="consent" style="font-size:0.9rem; color:var(--text-muted);">I agree to the Terms and Conditions and consent to electronic delivery of disclosures. *</label>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:2rem;"><button class="btn btn-outline btn-prev" id="step3-prev">&larr; Back</button><button class="btn btn-primary btn-next" id="step3-next">Review &rarr;</button></div>
+        </div>
+        <div class="form-step">
+          <h3 class="mb-4">Review & Submit</h3>
+          <div style="background:var(--light-bg); padding:1.5rem; border-radius:12px; border:1px solid var(--border-light); margin-bottom:2rem;" id="review-content"></div>
+          <div style="display:flex; justify-content:space-between;">
+            <button class="btn btn-outline btn-prev" id="step4-prev">&larr; Edit Details</button>
+            <button id="final-submit" class="btn btn-primary" style="background:linear-gradient(135deg, var(--accent), var(--accent-dark));">Submit Application &#10003;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      function byId(id) { return document.getElementById(id); }
+
+      var steps = Array.prototype.slice.call(document.querySelectorAll('.form-step'));
+      var stepIndicator = document.querySelector('.step-indicator');
+      var indicators = stepIndicator ? Array.prototype.slice.call(stepIndicator.querySelectorAll('.step')) : [];
+
+      var currentStepIndex = 0;
+      function showStep(index) {
+        if (index < 0 || index >= steps.length) return;
+        currentStepIndex = index;
+
+        steps.forEach(function (s, i) {
+          s.classList.toggle('active', i === index);
+        });
+        indicators.forEach(function (d, i) {
+          d.classList.toggle('active', i === index);
+          d.classList.toggle('completed', i < index);
+        });
+
+        // Update disabled state of nav buttons
+        var prevBtn = byId('step' + (index + 1) + '-prev');
+        var nextBtn = byId('step' + (index + 1) + '-next');
+        if (prevBtn) prevBtn.disabled = index === 0;
+        if (nextBtn) nextBtn.disabled = index === steps.length - 1;
+      }
+
+      // Basic required validation for fields in the active step
+      function validateStep(stepEl) {
+        if (!stepEl) return true;
+        var inputs = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
+        var checkboxRequired = stepEl.querySelector('input[type="checkbox"][required]');
+
+        var ok = true;
+        Array.prototype.forEach.call(inputs, function (el) {
+          // browser-native validation
+          if (el.type === 'checkbox') {
+            if (!el.checked) ok = false;
+          } else {
+            if (!el.value || !String(el.value).trim()) ok = false;
+          }
+        });
+        if (checkboxRequired && !checkboxRequired.checked) ok = false;
+        return ok;
+      }
+
+      function gatherReview() {
+        var review = byId('review-content');
+        if (!review) return;
+
+        function safeText(id) {
+          var el = byId(id);
+          return el ? String(el.value || '').trim() : '';
+        }
+
+        var rows = [
+          ['Full Name', safeText('name')],
+          ['Email Address', safeText('email')],
+          ['Phone Number', safeText('phone')],
+          ['Age', safeText('age')],
+          ['Product', safeText('product')],
+          ['Initial Deposit / Credit Limit', safeText('amount')],
+          ['Preferred Communication', byId('communication') ? byId('communication').value : '']
+        ];
+
+        review.innerHTML = rows
+          .map(function (r) {
+            return '<div style="display:flex; justify-content:space-between; gap:1rem; padding:0.65rem 0; border-bottom:1px solid rgba(0,0,0,0.05);">' +
+              '<div style="color:var(--text-muted); font-weight:600;">' + r[0] + '</div>' +
+              '<div style="color:var(--text-light); font-weight:600;">' + (r[1] || '-') + '</div>' +
+            '</div>';
+          })
+          .join('');
+      }
+
+      // Attach handlers for Next/Prev buttons
+      steps.forEach(function (stepEl, idx) {
+        var nextBtn = stepEl.querySelector('.btn-next');
+        var prevBtn = stepEl.querySelector('.btn-prev');
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (!validateStep(stepEl)) {
+              // trigger native messages
+              var requiredFields = stepEl.querySelectorAll('[required]');
+              Array.prototype.forEach.call(requiredFields, function (f) {
+                if (f.reportValidity) f.reportValidity();
+              });
+              return;
+            }
+            if (idx === 2) gatherReview();
+            showStep(idx + 1);
+          });
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            showStep(idx - 1);
+          });
+        }
+      });
+
+      // Final submit demo
+      var finalSubmit = byId('final-submit');
+      if (finalSubmit) {
+        finalSubmit.addEventListener('click', function (e) {
+          e.preventDefault();
+
+          // Ensure required fields are valid in the previous steps as well
+          var allRequired = steps[0].querySelectorAll('input[required], select[required], textarea[required]');
+          var checkboxRequired = steps[2] ? steps[2].querySelector('input[type="checkbox"][required]') : null;
+          var ok = true;
+          Array.prototype.forEach.call(allRequired, function (el) {
+            if (el.type === 'checkbox') return;
+            if (!el.value || !String(el.value).trim()) ok = false;
+          });
+          if (checkboxRequired && !checkboxRequired.checked) ok = false;
+
+          if (!ok) {
+            // Trigger native validation UI
+            steps.forEach(function (st) {
+              var requiredFields = st.querySelectorAll('[required]');
+              Array.prototype.forEach.call(requiredFields, function (f) {
+                if (f.reportValidity) f.reportValidity();
+              });
+            });
+            return;
+          }
+
+          alert('Demo: Application submitted successfully.');
+          window.location.reload();
+        });
+      }
+
+
+      // Initialize
+      showStep(0);
+    })();
+  </script>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

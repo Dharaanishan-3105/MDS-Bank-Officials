@@ -1,0 +1,247 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MDS Bank &#8212; Premium digital banking with high-yield savings, rewarding credit cards, flexible loans, and smart investing. Money. Done Smarter." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="MDS Bank | Money. Done Smarter." />
+  <meta property="og:description" content="Premium digital banking designed for your lifestyle." />
+  <meta property="og:type" content="website" />
+  <title>MDS Bank | Money. Done Smartenne
+    r.</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="premium-dashboard.css" />
+</head>
+<body>
+
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search-toggle" id="nav-search-toggle" aria-label="Open search" onclick="toggleSearchOverlay()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a href="apply.html" class="btn btn-outline">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary">Login</a>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Search Overlay (Home page only) -->
+  <div id="search-overlay" class="search-overlay">
+    <div class="search-overlay-inner">
+      <button class="search-overlay-close" onclick="toggleSearchOverlay()" aria-label="Close search">&times;</button>
+      <h2 style="color:white; margin-bottom:1.5rem; font-family:'Space Grotesk',sans-serif;">What are you looking for?</h2>
+      <form onsubmit="submitSearch(event)" style="position:relative; max-width:700px; margin:0 auto;">
+        <input type="text" id="overlay-search-input" class="search-input" placeholder="Search accounts, cards, loans, support..." style="font-size:1.2rem; padding:1.2rem 5rem 1.2rem 1.5rem; border:none; box-shadow:0 8px 32px rgba(0,0,0,0.3);" autofocus />
+        <button type="submit" class="btn btn-primary search-btn" style="border-radius:25px;">Search</button>
+      </form>
+      <div style="margin-top:2rem; display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <a href="accounts.html" class="search-quick-link">Savings</a>
+        <a href="cards.html" class="search-quick-link">Credit Cards</a>
+        <a href="loans.html" class="search-quick-link">Loans</a>
+        <a href="investments.html" class="search-quick-link">Investing</a>
+        <a href="contact.html" class="search-quick-link">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="page-hero-divider" aria-hidden="true"></div>
+    <section class="hero" aria-label="MDS Bank hero">
+
+      <div class="hero-container">
+        <div class="hero-content animate-up">
+          <h1>Experience Banking,<br><span>Done Smarter.</span></h1>
+          <p>Premium digital banking designed for your lifestyle. High-yield savings, rewarding cards, and seamless investing &#8212; all in one place.</p>
+          <div style="display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
+            <a href="apply.html" class="btn btn-primary" id="hero-open-account">Open Account</a>
+            <a href="cards.html" class="btn btn-outline" id="hero-explore-cards" style="color:white; border-color:rgba(255,255,255,0.4);">Explore Cards</a>
+          </div>
+        </div>
+
+        <div class="hero-visual animate-up" style="animation-delay: 0.2s;">
+          <div class="mock-card">
+            <div class="card-top">
+              <span style="font-family:'Space Grotesk',sans-serif; font-weight:700;">MDS Premium</span>
+              <div class="card-chip"></div>
+            </div>
+            <div class="card-number">**** **** **** 4092</div>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:rgba(255,255,255,0.6);">
+              <span>Cardholder<br>ALEX JORDAN</span>
+              <span>Expires<br>12/28</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+      <div class="trust-bar-inner" style="max-width:1200px; margin:0 auto; padding: 0 5%; display:flex; justify-content:space-between; gap: 1rem; flex-wrap:wrap;">
+
+        <div class="trust-item"><strong>$2.4B+</strong><span>Assets Managed</span></div>
+
+        <div class="trust-item"><strong>500K+</strong><span>Active Customers</span></div>
+        <div class="trust-item"><strong>4.8<span aria-hidden="true">★</span></strong><span>App Store Rating</span></div>
+        <div class="trust-item"><strong>24/7</strong><span>Customer Support</span></div>
+      </div>
+    </section>
+
+    <section style="padding-top: 3.25rem;">
+      <div class="section-title reveal">
+        <h2>Everything you need, right here.</h2>
+      </div>
+
+      <div class="grid-4" style="max-width: 1200px; margin: 0 auto;">
+
+        <div class="feature-card reveal">
+          <div class="icon-box">&#128200;</div>
+          <h3>High-Yield Savings</h3>
+          <p>Earn up to 4.5% APY on your everyday savings with zero hidden fees.</p>
+          <a href="accounts.html" style="color:var(--primary); font-weight:600; text-decoration:none;">Learn More &rarr;</a>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-box">&#128179;</div>
+          <h3>Credit Cards</h3>
+          <p>Cards that match your lifestyle. Travel rewards, cashback, and more.</p>
+          <a href="cards.html" style="color:var(--primary); font-weight:600; text-decoration:none;">Compare Cards &rarr;</a>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-box">&#128176;</div>
+          <h3>Personal Loans</h3>
+          <p>Quick approval, competitive rates, and flexible repayment terms.</p>
+          <a href="loans.html" style="color:var(--primary); font-weight:600; text-decoration:none;">Calculate EMI &rarr;</a>
+        </div>
+        <div class="feature-card reveal">
+          <div class="icon-box">&#128200;</div>
+          <h3>Smart Investing</h3>
+          <p>Automated portfolios or self-directed trading. Grow your wealth.</p>
+          <a href="investments.html" style="color:var(--primary); font-weight:600; text-decoration:none;">Start Investing &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Section with real YouTube embed -->
+    <section style="background: var(--dark-bg); color:white;">
+      <div class="grid-2 align-items-center" style="align-items:center;">
+        <div class="reveal">
+          <span style="color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:2px; font-size:0.8rem;">Watch & Learn</span>
+          <h2 style="color:white; margin-top:0.5rem;">The Future of Digital Banking</h2>
+          <p class="mb-4" style="color:rgba(255,255,255,0.7);">See how MDS Bank is revolutionizing the way you manage, save, and grow your money with our award-winning platform.</p>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="apply.html" class="btn btn-primary" id="download-app-cta">Get Started</a>
+            <a href="contact.html" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);">Talk to Us</a>
+          </div>
+        </div>
+        <div class="video-container reveal">
+          <iframe
+            width="100%" height="100%"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+            title="MDS Bank &#8212; The Future of Banking"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:20px;">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Resources Section -->
+    <section>
+      <div class="section-title reveal">
+        <h2>Downloadable Resources</h2>
+      </div>
+      <div class="grid-3">
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#128196;</div>
+          <h3>Fee Schedule</h3>
+          <p>Complete breakdown of all account fees and charges.</p>
+          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Fee_Schedule')" style="width:100%;">Download PDF</button>
+        </div>
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#128203;</div>
+          <h3>Account Agreement</h3>
+          <p>Terms and conditions for all MDS Bank accounts.</p>
+          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Account_Agreement')" style="width:100%;">Download PDF</button>
+        </div>
+        <div class="feature-card reveal" style="text-align:center;">
+          <div class="icon-box">&#128218;</div>
+          <h3>Security Guidelines</h3>
+          <p>How we keep your accounts and data safe.</p>
+          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Security_Guidelines')" style="width:100%;">Download PDF</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

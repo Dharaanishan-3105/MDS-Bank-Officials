@@ -1,0 +1,409 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MDS Bank Dashboard &#8212; Manage accounts, view transactions, and transfer money." />
+  <title>Dashboard | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="premium-dashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="dash-user-badge">
+          <div class="dash-user-avatar">AJ</div>
+          <span style="font-weight:500; font-size:0.9rem;">Alex Jordan</span>
+        </div>
+        <a href="index.html" class="btn btn-outline">Sign Out</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard-glow-bg" aria-hidden="true"></div>
+    <section class="dashboard-hero">
+
+    
+
+      <div class="dashboard-hero-card">
+        <div>
+          <span class="eyebrow">Dashboard Overview</span>
+          <h1>Welcome back, Alex</h1>
+          <p>Manage your accounts, monitor activity, and access documents from one polished banking workspace.</p>
+        </div>
+        <div class="dashboard-hero-actions">
+          <button class="btn btn-primary" id="transfer-money-btn" onclick="document.getElementById('transfer-modal').style.display='block'">Transfer Money</button>
+          <button class="btn btn-outline" onclick="downloadPDF('MDS_Bank_Statement_May2026','Download Statement')">&#128196; Download Statement</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div style="padding:1.5rem 2rem 0.5rem; margin-bottom:0.5rem;">
+          <span style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted);">Menu</span>
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="#" class="active" id="sidebar-overview">&#128200; Overview</a></li>
+          <li><a href="#" id="sidebar-accounts">&#128179; Accounts</a></li>
+          <li><a href="#" id="sidebar-transfers">&#128176; Transfers & Pay</a></li>
+          <li><a href="#" id="sidebar-cards">&#128179; My Cards</a></li>
+          <li><a href="#" id="sidebar-statements">&#128196; Statements</a></li>
+          <li><a href="#" id="sidebar-settings">&#9881; Settings</a></li>
+        </ul>
+
+        <div style="padding:1.5rem 2rem 0.5rem; margin-top:1rem;">
+          <span style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted);">Help</span>
+        </div>
+        <ul class="sidebar-menu">
+          <li><a href="support.html" id="sidebar-help">&#10003; Help Center</a></li>
+          <li><a href="contact.html" id="sidebar-contact">&#9993; Contact Us</a></li>
+        </ul>
+      </aside>
+
+      <main class="main-content">
+        <!-- Welcome Header -->
+      <div class="dash-header">
+        <div>
+          <span style="color:var(--text-muted); font-size:0.9rem;">Good afternoon,</span>
+          <h1 style="color:var(--text-light); margin-top:0.25rem; font-size:1.8rem;">Alex Jordan</h1>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="transfer-money-btn" onclick="document.getElementById('transfer-modal').style.display='block'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M12 5v14M5 12h14"/></svg>
+            Transfer Money
+          </button>
+          <button class="btn btn-outline" onclick="downloadPDF('MDS_Bank_Statement_May2026')">&#128196; Download Statement</button>
+        </div>
+      </div>
+
+      <!-- Premium KPI Filters + Cards -->
+      <div class="dash-filters" style="margin-bottom:1.25rem;">
+        <div style="min-width:160px;">
+          <span style="display:block; font-size:0.75rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.5rem;">Month</span>
+          <select id="filter-month" class="form-control dashboard-filter" style="padding:0.55rem 0.8rem; border-radius:12px; font-size:0.9rem; background:white;">
+            <option>This Month</option>
+            <option>Last Month</option>
+            <option>Last Quarter</option>
+            <option>Year to Date</option>
+          </select>
+        </div>
+
+        <div style="min-width:160px;">
+          <span style="display:block; font-size:0.75rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.5rem;">Region</span>
+          <select class="form-control" style="padding:0.55rem 0.8rem; border-radius:12px; font-size:0.9rem; background:white;">
+            <option>All Regions</option>
+            <option>Northeast</option>
+            <option>Midwest</option>
+            <option>South</option>
+            <option>West</option>
+          </select>
+        </div>
+        <div style="min-width:160px;">
+          <span style="display:block; font-size:0.75rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.5rem;">Product</span>
+          <select class="form-control" style="padding:0.55rem 0.8rem; border-radius:12px; font-size:0.9rem; background:white;">
+            <option>All Products</option>
+            <option>Loans</option>
+            <option>Cards</option>
+            <option>Investing</option>
+            <option>Savings</option>
+          </select>
+        </div>
+        <div style="min-width:160px;">
+          <span style="display:block; font-size:0.75rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.5rem;">Customer Segment</span>
+          <select class="form-control" style="padding:0.55rem 0.8rem; border-radius:12px; font-size:0.9rem; background:white;">
+            <option>All Segments</option>
+            <option>Premium</option>
+            <option>Everyday</option>
+            <option>New Customers</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="dash-kpi-grid" style="margin-bottom:1.25rem;">
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Customers</div>
+              <div class="kpi-value" id="metric-customers">520,000+</div>
+            </div>
+            <div class="kpi-icon">👥</div>
+          </div>
+          <div class="kpi-delta">+ growth</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Active Users</div>
+              <div class="kpi-value" id="metric-active">396,000+</div>
+            </div>
+            <div class="kpi-icon">⚡</div>
+          </div>
+          <div class="kpi-delta">+ engagement</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Loans</div>
+              <div class="kpi-value" id="metric-loans">1,280</div>
+            </div>
+            <div class="kpi-icon">🏦</div>
+          </div>
+          <div class="kpi-delta">stable</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Card Requests</div>
+              <div class="kpi-value" id="metric-cards">870</div>
+            </div>
+            <div class="kpi-icon">💳</div>
+          </div>
+          <div class="kpi-delta">+ momentum</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Transactions</div>
+              <div class="kpi-value" id="metric-transactions">1,840,000</div>
+            </div>
+            <div class="kpi-icon">🔁</div>
+          </div>
+          <div class="kpi-delta">fast</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Satisfaction</div>
+              <div class="kpi-value" id="metric-satisfaction">94%</div>
+            </div>
+            <div class="kpi-icon">🛡️</div>
+          </div>
+          <div class="kpi-delta">top tier</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Fraud Alerts</div>
+              <div class="kpi-value" id="metric-alerts">12</div>
+            </div>
+            <div class="kpi-icon">🚨</div>
+          </div>
+          <div class="kpi-delta">monitored</div>
+        </div>
+        <div class="dash-kpi-card">
+          <div class="kpi-top">
+            <div>
+              <div class="kpi-label">Support Tickets</div>
+              <div class="kpi-value" id="metric-tickets">25</div>
+            </div>
+            <div class="kpi-icon">🎫</div>
+          </div>
+          <div class="kpi-delta">resolved</div>
+        </div>
+      </div>
+
+
+      <!-- Quick Actions -->
+      <div class="dash-card mb-4">
+        <h3 style="margin-bottom:1rem; font-size:1rem;">Quick Actions</h3>
+        <div class="dash-quick-actions">
+          <button class="dash-action-btn" onclick="alert('Demo: Bill Pay')"><span>&#128176;</span>Pay Bills</button>
+          <button class="dash-action-btn" onclick="alert('Demo: Deposit')"><span>&#128179;</span>Deposit Check</button>
+          <button class="dash-action-btn" onclick="alert('Demo: Zelle')"><span>&#128176;</span>Send via Zelle</button>
+          <button class="dash-action-btn" onclick="alert('Demo: Invest')"><span>&#128200;</span>Invest</button>
+          <button class="dash-action-btn" onclick="downloadPDF('MDS_Bank_Statement_May2026')"><span>&#128196;</span>Statements</button>
+          <button class="dash-action-btn" onclick="alert('Demo: Settings')"><span>&#9881;</span>Settings</button>
+        </div>
+      </div>
+
+      <!-- Charts & Transactions -->
+      <div class="grid-2">
+        <div class="dash-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <h3 style="font-size:1rem;">Spending Overview</h3>
+            <select class="form-control" style="width:auto; padding:0.4rem 0.8rem; font-size:0.8rem; border-radius:8px;">
+              <option>This Month</option>
+              <option>Last Month</option>
+              <option>Last 3 Months</option>
+            </select>
+          </div>
+          <canvas id="spendingChart" height="220"></canvas>
+        </div>
+
+        <div class="dash-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+            <h3 style="font-size:1rem;">Recent Transactions</h3>
+            <a href="#" id="view-all-transactions" style="color:var(--primary); font-weight:500; text-decoration:none; font-size:0.85rem;">View All &rarr;</a>
+          </div>
+          <div class="dash-transactions">
+            <div class="dash-tx-item">
+              <div class="dash-tx-icon" style="background:#FFF3E0;">&#128722;</div>
+              <div class="dash-tx-info">
+                <strong>Whole Foods Market</strong>
+                <span>Groceries &#183; May 12</span>
+              </div>
+              <span class="dash-tx-amount negative">-$142.50</span>
+            </div>
+            <div class="dash-tx-item">
+              <div class="dash-tx-icon" style="background:#FFEBEE;">&#127916;</div>
+              <div class="dash-tx-info">
+                <strong>Netflix Subscription</strong>
+                <span>Entertainment &#183; May 10</span>
+              </div>
+              <span class="dash-tx-amount negative">-$15.99</span>
+            </div>
+            <div class="dash-tx-item">
+              <div class="dash-tx-icon" style="background:#E8F5E9;">&#128188;</div>
+              <div class="dash-tx-info">
+                <strong>TechCorp Inc.</strong>
+                <span>Direct Deposit &#183; May 8</span>
+              </div>
+              <span class="dash-tx-amount positive">+$3,250.00</span>
+            </div>
+            <div class="dash-tx-item">
+              <div class="dash-tx-icon" style="background:#E3F2FD;">&#128663;</div>
+              <div class="dash-tx-info">
+                <strong>Uber Rides</strong>
+                <span>Transportation &#183; May 7</span>
+              </div>
+              <span class="dash-tx-amount negative">-$24.50</span>
+            </div>
+            <div class="dash-tx-item">
+              <div class="dash-tx-icon" style="background:#F3E5F5;">&#9749;</div>
+              <div class="dash-tx-info">
+                <strong>Starbucks</strong>
+                <span>Dining &#183; May 6</span>
+              </div>
+              <span class="dash-tx-amount negative">-$6.45</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credit Card Widget -->
+      <div class="dash-card mt-4">
+        <h3 style="margin-bottom:1.5rem; font-size:1rem;">My Cards</h3>
+        <div class="grid-2" style="gap:1.5rem;">
+          <div class="mock-card" style="width:100%; height:200px; transform:none; background:linear-gradient(135deg, var(--primary), var(--accent));">
+            <div class="card-top"><span style="font-family:'Space Grotesk',sans-serif; font-weight:700;">MDS Premium</span><div class="card-chip"></div></div>
+            <div class="card-number">**** **** **** 4092</div>
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:rgba(255,255,255,0.6);"><span>ALEX JORDAN</span><span>12/28</span></div>
+          </div>
+          <div style="display:flex; flex-direction:column; justify-content:center; gap:1rem;">
+            <div><span style="color:var(--text-muted); font-size:0.85rem;">Available Credit</span><div style="font-size:1.5rem; font-weight:700; font-family:'Space Grotesk',sans-serif;">$12,750.00</div></div>
+            <div><span style="color:var(--text-muted); font-size:0.85rem;">Current Balance</span><div style="font-size:1.5rem; font-weight:700; font-family:'Space Grotesk',sans-serif; color:var(--primary);">$2,250.00</div></div>
+            <div style="background:var(--light-bg); border-radius:8px; height:8px; overflow:hidden;"><div style="width:15%; height:100%; background:linear-gradient(90deg, var(--accent), var(--primary)); border-radius:8px;"></div></div>
+            <span style="font-size:0.8rem; color:var(--text-muted);">15% of $15,000 limit used</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Transfer Modal -->
+  <div id="transfer-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; backdrop-filter:blur(4px);">
+    <div style="background:white; max-width:500px; margin:10vh auto; padding:2rem; border-radius:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h2>Transfer Money</h2>
+        <button onclick="document.getElementById('transfer-modal').style.display='none'" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&#215;</button>
+      </div>
+      <div class="form-group"><label class="form-label">From Account</label><select class="form-control"><option>Everyday Checking (...4092)</option></select></div>
+      <div class="form-group"><label class="form-label">To Account</label><select class="form-control"><option>High-Yield Savings (...1184)</option></select></div>
+      <div class="form-group"><label class="form-label">Amount ($)</label><input type="number" class="form-control" id="transfer-amount" placeholder="0.00"></div>
+      <button class="btn btn-primary" id="review-transfer-btn" style="width:100%;" onclick="handleTransfer()">Review Transfer</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    function handleTransfer() {
+      var amt = document.getElementById('transfer-amount');
+
+      alert('Demo: Transfer of $' + (amt ? amt.value : '0') + ' initiated successfully.');
+      document.getElementById('transfer-modal').style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      var ctx = document.getElementById('spendingChart');
+      if (ctx) {
+        new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Housing', 'Food & Dining', 'Transportation', 'Entertainment', 'Shopping', 'Utilities'],
+            datasets: [{ data: [35, 22, 15, 10, 12, 6], backgroundColor: ['#1B4F72', '#00B894', '#D4A745', '#E74C3C', '#8E44AD', '#3498DB'], borderWidth: 0, borderRadius: 4 }]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false, cutout: '65%',
+            plugins: { legend: { position: 'bottom', labels: { font: { family: "'DM Sans', sans-serif", size: 12 }, padding: 16, usePointStyle: true, pointStyleWidth: 10 } } }
+          }
+        });
+      }
+    });
+  </script>
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,78 @@
+/* Premium additions for index/dashboard */
+
+/* Index hero divider */
+.page-hero-divider{
+  height: 12px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0.95;
+}
+
+/* Keep existing trust bar background transparent (safe override) */
+.trust-bar{
+  background: transparent;
+}
+
+/* Slightly lift hero content for the premium divider */
+.hero{
+  padding-top: 5rem;
+}
+
+.hero-container{ align-items:flex-start; }
+
+.hero-visual .mock-card{
+  box-shadow: var(--shadow-lg);
+}
+
+/* Dashboard glow background */
+.dashboard-glow-bg{
+  position: absolute;
+  inset: -160px -160px auto -160px;
+  height: 520px;
+  background:
+    radial-gradient(circle at 30% 35%, rgba(0,184,148,0.35), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(27,79,114,0.55), transparent 58%);
+  pointer-events: none;
+}
+
+/* KPI grid + filter styles (used by a future/optional redesign) */
+.dash-kpi-grid{ display:grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 1rem; }
+.dash-kpi-card{
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(226,232,240,0.9);
+  border-radius: 18px;
+  padding: 1.1rem;
+  box-shadow: var(--shadow-sm);
+}
+.dash-kpi-card .kpi-top{ display:flex; justify-content:space-between; align-items:flex-start; gap: 1rem; }
+.dash-kpi-card .kpi-icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display:grid;
+  place-items:center;
+  background: linear-gradient(135deg, var(--primary-light), #EBF5FB);
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+.dash-kpi-card .kpi-value{
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: var(--font-secondary);
+  margin-top: 0.35rem;
+  color: var(--text-light);
+}
+.dash-kpi-card .kpi-label{ color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
+.dash-kpi-card .kpi-delta{ margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; }
+
+.dash-filters{
+  display:flex;
+  gap: 0.75rem;
+  flex-wrap:wrap;
+  align-items:center;
+  padding: 1rem 1.25rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(226,232,240,0.9);
+  box-shadow: var(--shadow-sm);
+}
+

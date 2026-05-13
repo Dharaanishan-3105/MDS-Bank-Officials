@@ -1,0 +1,142 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MDS Bank Loans &#8212; Personal, auto, and home loans with competitive rates and quick approval." />
+  <title>Loans | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="apply.html" class="btn btn-outline" data-track="cta_click" data-event="apply_now_click" data-category="header" data-label="Apply Now">Apply Now</a>
+        <a href="dashboard.html" class="btn btn-primary" data-track="cta_click" data-event="login_click" data-category="header" data-label="Login">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding: 4rem 5%;">
+      <div class="hero-container">
+        <div class="hero-content text-center" style="margin:0 auto;">
+          <h1>Flexible Loans</h1>
+          <p style="margin:0 auto;">Rates that make sense. Approval that's fast. Make your goals a reality today.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid-2 align-items-center" style="align-items: start;">
+        <div class="reveal">
+          <div class="section-title" style="text-align:left; margin-bottom:2rem;"><h2>Calculate your EMI</h2></div>
+          <p class="mb-4">Use our quick calculator to estimate your monthly payments.</p>
+          <div id="emi-calculator" class="dash-card">
+            <div class="form-group">
+              <label class="form-label">Loan Amount ($)</label>
+              <input type="number" id="loan-amount" class="form-control" value="10000" min="1000" step="500">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Loan Tenure (Years)</label>
+              <input type="number" id="loan-tenure" class="form-control" value="3" min="1" max="10">
+            </div>
+            <button id="calculate-emi" class="btn btn-primary" style="width:100%; margin-bottom:1.5rem;">Calculate EMI</button>
+            <div style="background:var(--primary-light); padding:1.5rem; border-radius:12px; text-align:center;">
+              <span style="display:block; color:var(--text-muted); font-size:0.9rem;">Estimated Monthly Payment</span>
+              <strong id="emi-result" style="font-size:2.5rem; color:var(--primary); font-family:'Space Grotesk',sans-serif;">$361.11</strong>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="grid-2" style="grid-template-columns: 1fr;">
+            <div class="feature-card reveal" style="text-align:left; padding:1.5rem;">
+              <h3 style="color:var(--primary);">Personal Loans</h3>
+              <p>Rates as low as 6.99% APR. Fund purchases, consolidate debt, or cover expenses.</p>
+              <a href="apply.html?product=personal-loan" id="apply-personal-loan" style="color:var(--primary); font-weight:600; text-decoration:none;">Apply for Personal Loan &rarr;</a>
+            </div>
+            <div class="feature-card reveal" style="text-align:left; padding:1.5rem;">
+              <h3 style="color:var(--accent);">Auto Loans</h3>
+              <p>Rates as low as 4.25% APR. Get pre-approved before visiting the dealership.</p>
+              <a href="apply.html?product=auto-loan" id="apply-auto-loan" style="color:var(--accent); font-weight:600; text-decoration:none;">Apply for Auto Loan &rarr;</a>
+            </div>
+            <div class="feature-card reveal" style="text-align:left; padding:1.5rem;">
+              <h3 style="color:var(--gold);">Home Loans</h3>
+              <p>Fixed and adjustable-rate mortgages to buy your dream home or refinance.</p>
+              <a href="apply.html?product=mortgage" id="apply-mortgage" style="color:var(--gold); font-weight:600; text-decoration:none;">Apply for Mortgage &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#" class="download-link" onclick="downloadPDF('mds-bank-digital-guide.pdf','Download Digital Banking Guide')">Download Guide (PDF)</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
