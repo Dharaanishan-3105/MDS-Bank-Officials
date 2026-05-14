@@ -179,6 +179,40 @@ function initSearchPage() {
   }
 }
 
+function initLocatorFiltering() {
+  var filterButtons = document.querySelectorAll('.locator-filter button');
+  var cards = document.querySelectorAll('.locator-card');
+  var searchInput = document.getElementById('locator-search');
+  if (!filterButtons.length || !cards.length) return;
+
+  function updateLocator() {
+    var activeButton = document.querySelector('.locator-filter button.active');
+    var filter = activeButton ? activeButton.dataset.filter : 'all';
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+    cards.forEach(function (card) {
+      var service = (card.dataset.service || '').toLowerCase();
+      var content = card.textContent.toLowerCase();
+      var city = (card.dataset.city || '').toLowerCase();
+      var matchesFilter = filter === 'all' || service.indexOf(filter) !== -1;
+      var matchesQuery = !query || content.indexOf(query) !== -1 || city.indexOf(query) !== -1;
+      card.style.display = matchesFilter && matchesQuery ? 'block' : 'none';
+    });
+  }
+
+  filterButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      filterButtons.forEach(function (item) { item.classList.remove('active'); });
+      button.classList.add('active');
+      updateLocator();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', updateLocator);
+  }
+}
+
 function highlightActiveNav() {
   var page = window.location.pathname.split('/').pop() || 'index.html';
   var links = document.querySelectorAll('.nav-links a');
@@ -351,6 +385,7 @@ function init() {
   initScrollReveal();
   initDashboardFilters();
   initSearchPage();
+  initLocatorFiltering();
   initVideoEngagement();
   initNavigationTracking();
   initDownloadTracking();
