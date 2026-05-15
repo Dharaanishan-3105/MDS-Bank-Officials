@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-P9NJ362M');</script>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Open an MDS Bank account with a guided multi-step application." />
+  <title>Open Account | MDS Bank</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9NJ362M"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="MDS Bank" class="logo-img" />
+        <span class="brand-name">MDS Bank</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="accounts.html">Accounts</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="loans.html">Loans</a></li>
+        <li><a href="investments.html">Investments</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Open account hero">
+      <div class="hero-container">
+        <div class="hero-content animate-up">
+          <span style="color:var(--accent); font-weight:600; letter-spacing:1px; text-transform:uppercase; font-size:0.85rem;">Open Account</span>
+          <h1>Open your MDS Bank account in four easy steps</h1>
+          <p>Complete your application with personal details, contact information, product selection, and a quick review.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title reveal"><h2>Account application</h2></div>
+      <div class="form-container open-account-form" style="max-width:900px; margin:0 auto;">
+        <div class="step-indicator">
+          <div class="step active">1</div>
+          <div class="step">2</div>
+          <div class="step">3</div>
+          <div class="step">4</div>
+        </div>
+        <div class="dash-card" style="padding:2rem;">
+          <div class="form-step active" data-form-step="1">
+            <h3>Personal Details</h3>
+            <div class="form-group"><label class="form-label" for="app-name">Full Name *</label><input id="app-name" class="form-control input-field" type="text" required placeholder="John Doe" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-email">Email Address *</label><input id="app-email" class="form-control input-field" type="email" required placeholder="john@example.com" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-phone">Phone Number *</label><input id="app-phone" class="form-control input-field" type="tel" required placeholder="(555) 000-0000" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-dob">Date of Birth *</label><input id="app-dob" class="form-control input-field" type="date" required /><span class="field-error"></span></div>
+            <div style="display:flex; justify-content:flex-end;"><button type="button" class="btn btn-primary form-next-btn" data-form-name="open-account" data-step-number="1" data-form-action="next">Next Step &rarr;</button></div>
+          </div>
+
+          <div class="form-step" data-form-step="2">
+            <h3>Contact Details</h3>
+            <div class="form-group"><label class="form-label" for="app-address">Street Address *</label><input id="app-address" class="form-control input-field" type="text" required placeholder="123 Main St" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-city">City *</label><input id="app-city" class="form-control input-field" type="text" required placeholder="Manila" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-country">Country *</label><input id="app-country" class="form-control input-field" type="text" required placeholder="Philippines" /><span class="field-error"></span></div>
+            <div style="display:flex; justify-content:space-between;"><button type="button" class="btn btn-outline form-prev-btn" data-form-name="open-account" data-step-number="2" data-form-action="prev">&larr; Back</button><button type="button" class="btn btn-primary form-next-btn" data-form-name="open-account" data-step-number="2" data-form-action="next">Next Step &rarr;</button></div>
+          </div>
+
+          <div class="form-step" data-form-step="3">
+            <h3>Account Type</h3>
+            <div class="form-group"><label class="form-label" for="app-product">Choose a product *</label><select id="app-product" class="form-control input-field" required><option value="">Select a product...</option><option value="Savings Account">Savings Account</option><option value="Credit Card">Credit Card</option><option value="Personal Loan">Personal Loan</option><option value="Business Account">Business Account</option></select><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-deposit">Initial deposit / credit limit *</label><input id="app-deposit" class="form-control input-field" type="number" min="0" required placeholder="e.g. 5000" /><span class="field-error"></span></div>
+            <div class="form-group"><label class="form-label" for="app-contact">Preferred contact method</label><select id="app-contact" class="form-control input-field"><option>Email</option><option>Phone</option><option>Text Message</option></select></div>
+            <div class="form-group" style="display:flex; gap:0.75rem; align-items:flex-start;"><input id="app-consent" type="checkbox" required /><label for="app-consent" style="color:var(--text-muted);">I consent to terms and electronic disclosures. *</label></div>
+            <div style="display:flex; justify-content:space-between; margin-top:1rem;"><button type="button" class="btn btn-outline form-prev-btn" data-form-name="open-account" data-step-number="3" data-form-action="prev">&larr; Back</button><button type="button" class="btn btn-primary form-next-btn" data-form-name="open-account" data-step-number="3" data-form-action="next">Review &rarr;</button></div>
+          </div>
+
+          <div class="form-step" data-form-step="4">
+            <h3>Review & Submit</h3>
+            <div id="review-content" style="background:var(--light-bg); padding:1.5rem; border-radius:14px; border:1px solid var(--border-light); margin-bottom:1.5rem;"></div>
+            <div style="display:flex; justify-content:space-between;"><button type="button" class="btn btn-outline form-prev-btn" data-form-name="open-account" data-step-number="4" data-form-action="prev">&larr; Edit Details</button><button type="button" class="btn btn-primary form-submit-btn" data-form-name="open-account" data-step-number="4" data-form-action="submit">Submit Application</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title reveal" style="margin-top:2rem;"><h2>Downloadable resources</h2></div>
+      <div class="download-resources reveal">
+        <div class="resource-card">
+          <h3>Account Opening Guide</h3>
+          <p>Step-by-step instructions for opening a new account with MDS Bank.</p>
+          <a href="assets/files/Account_Opening_Guide.pdf" class="btn btn-outline download-resource-btn" target="_blank">Download Guide</a>
+        </div>
+        <div class="resource-card">
+          <h3>Charges List</h3>
+          <p>Review sample fees and charges so you can plan your banking costs.</p>
+          <a href="assets/files/Charges_List.pdf" class="btn btn-outline download-resource-btn" target="_blank">Download List</a>
+        </div>
+        <div class="resource-card">
+          <h3>Card Safety Guide</h3>
+          <p>Learn how to protect your cards and stay safe from fraud.</p>
+          <a href="assets/files/Card_Safety_Guide.pdf" class="btn btn-outline download-resource-btn" target="_blank">Download Guide</a>
+        </div>
+        <div class="resource-card">
+          <h3>Loan Checklist</h3>
+          <p>Verify the documents and information needed for your loan application.</p>
+          <a href="assets/files/Loan_Checklist.pdf" class="btn btn-outline download-resource-btn" target="_blank">Download Checklist</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo mb-3">
+          <img src="logo.png" alt="MDS Bank" class="logo-img" />
+          <span class="brand-name">MDS Bank</span>
+        </div>
+        <p>Money. Done Smarter. The premium digital banking experience.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="accounts.html">Checking & Savings</a></li>
+          <li><a href="cards.html">Credit Cards</a></li>
+          <li><a href="loans.html">Loans & Mortgages</a></li>
+          <li><a href="investments.html">Investments</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://twitter.com" target="_blank">Twitter &nearr;</a></li>
+          <li><a href="https://linkedin.com" target="_blank">LinkedIn &nearr;</a></li>
+          <li><a href="https://facebook.com" target="_blank">Facebook &nearr;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MDS Bank. Member FDIC. Equal Housing Lender. NMLS #123456</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

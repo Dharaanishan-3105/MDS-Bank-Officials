@@ -121,28 +121,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="footer-bottom">© 2026 MDS Bank. All rights reserved.</div>
 </footer>
 <script src="script.js"></script>
-<script>
-function calculateLoan() {
-  var amount = parseFloat(document.getElementById('loan-amount').value) || 0;
-  var apr = parseFloat(document.getElementById('interest-rate').value) / 100 || 0;
-  var years = parseFloat(document.getElementById('loan-term').value) || 0;
-  var monthlyRate = apr / 12;
-  var payments = years * 12;
-  if (monthlyRate > 0 && payments > 0) {
-    var factor = Math.pow(1 + monthlyRate, payments);
-    var monthly = amount * monthlyRate * factor / (factor - 1);
-    var totalCost = monthly * payments;
-    var interest = totalCost - amount;
-    document.getElementById('monthly-payment').textContent = '$' + monthly.toFixed(2);
-    document.getElementById('total-interest').textContent = '$' + interest.toFixed(2);
-    document.getElementById('total-cost').textContent = '$' + totalCost.toFixed(2);
-  } else {
-    document.getElementById('monthly-payment').textContent = '$0.00';
-    document.getElementById('total-interest').textContent = '$0.00';
-    document.getElementById('total-cost').textContent = '$0.00';
-  }
-}
-calculateLoan();
-</script>
-</body>
+
 </html>
