@@ -1,0 +1,11 @@
+[[headers]]
+  for = "/*"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # Let Netlify serve your HTTPS properly; HSTS requires HTTPS and may be handled by the platform.
+
+
