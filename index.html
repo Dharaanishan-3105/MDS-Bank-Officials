@@ -29,6 +29,17 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
+  <div class="demo-disclaimer" role="note" aria-label="Educational demo disclaimer">
+    <div class="demo-disclaimer-inner">
+      <div>
+        <div class="demo-disclaimer-title">Educational Demo Website</div>
+      </div>
+      <div class="demo-disclaimer-text">Educational Demo Website — MDS Bank is a fictional banking project for UI/UX and analytics practice. Do not enter real personal, banking, card, OTP, password, or financial information.</div>
+    </div>
+  </div>
+
+
+
   <header>
     <div class="nav-container">
       <a href="index.html" class="logo">
@@ -84,8 +95,10 @@
           <h1>Experience Banking,<br><span>Done Smarter.</span></h1>
           <p>Premium digital banking designed for your lifestyle. High-yield savings, rewarding cards, and seamless investing &#8212; all in one place.</p>
           <div style="display:flex; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
-            <a href="apply.html" class="btn btn-primary" id="hero-open-account">Open Account</a>
-            <a href="cards.html" class="btn btn-outline" id="hero-explore-cards" style="color:white; border-color:rgba(255,255,255,0.4);">Explore Cards</a>
+          <a href="apply.html" class="btn btn-primary" id="hero-open-account" data-page-section="hero" data-cta-name="open-account" data-product-name="" data-product-category="Accounts" data-interaction-type="click">Open Account</a>
+
+            <a href="cards.html" class="btn btn-outline" id="hero-explore-cards" style="color:white; border-color:rgba(255,255,255,0.4);" data-page-section="hero" data-cta-name="explore-cards" data-product-name="" data-product-category="Cards" data-interaction-type="click">Explore Cards</a>
+
           </div>
         </div>
 
@@ -105,18 +118,6 @@
       </div>
     </section>
 
-    <!-- Trust Bar -->
-    <section class="trust-bar">
-      <div class="trust-bar-inner" style="max-width:1200px; margin:0 auto; padding: 0 5%; display:flex; justify-content:space-between; gap: 1rem; flex-wrap:wrap;">
-
-        <div class="trust-item"><strong>$2.4B+</strong><span>Assets Managed</span></div>
-
-        <div class="trust-item"><strong>500K+</strong><span>Active Customers</span></div>
-        <div class="trust-item"><strong>4.8<span aria-hidden="true">★</span></strong><span>App Store Rating</span></div>
-        <div class="trust-item"><strong>24/7</strong><span>Customer Support</span></div>
-      </div>
-    </section>
-
     <section class="promotions">
       <div class="section-title reveal">
         <h2>Current Campaigns for MDS Bank Customers</h2>
@@ -127,28 +128,31 @@
           <p class="eyebrow">Card Rewards</p>
           <h3>Cashback on everyday spending</h3>
           <p>Earn up to 3% cashback when you use your MDS debit or credit card for groceries, fuel, and dining.</p>
-          <a href="cards.html" class="btn btn-outline">Learn More</a>
+          <a href="cards.html" class="btn btn-outline" data-page-section="promotions" data-cta-name="learn-more" data-product-category="Cards" data-interaction-type="click">Learn More</a>
         </article>
         <article class="promo-card reveal">
           <div class="promo-icon" aria-hidden="true">🤝</div>
           <p class="eyebrow">Referral Rewards</p>
           <h3>Invite friends, earn rewards</h3>
           <p>Refer a friend to MDS Bank and receive bonus rewards when they open an account and complete their first transaction.</p>
-          <a href="contact.html" class="btn btn-outline">Learn More</a>
+          <a href="contact.html" class="btn btn-outline" data-page-section="promotions" data-cta-name="learn-more" data-product-category="Referral Rewards" data-interaction-type="click">Learn More</a>
+
         </article>
         <article class="promo-card reveal">
           <div class="promo-icon" aria-hidden="true">🏦</div>
           <p class="eyebrow">Zero-Fee Savings</p>
           <h3>Grow savings with no monthly fees</h3>
           <p>Our digital savings account carries no monthly maintenance fee and easy access through the app.</p>
-          <a href="accounts.html" class="btn btn-outline">Learn More</a>
+          <a href="accounts.html" class="btn btn-outline" data-page-section="promotions" data-cta-name="learn-more" data-product-category="Savings" data-interaction-type="click">Learn More</a>
+
         </article>
         <article class="promo-card reveal">
           <div class="promo-icon" aria-hidden="true">📱</div>
           <p class="eyebrow">Mobile Banking</p>
           <h3>Secure banking on the go</h3>
           <p>Open an account online, transfer funds, pay bills, and manage cards right from your phone.</p>
-          <a href="app.html" class="btn btn-outline">Learn More</a>
+          <a href="app.html" class="btn btn-outline" data-page-section="promotions" data-cta-name="learn-more" data-product-category="Digital Banking" data-interaction-type="click">Learn More</a>
+
         </article>
       </div>
     </section>
@@ -167,7 +171,8 @@
             <li>High APY for balances over $1,000</li>
             <li>Automatic savings tools</li>
           </ul>
-          <a href="accounts.html" class="text-link">Learn More &rarr;</a>
+          <a href="accounts.html" class="text-link" data-page-section="product-categories" data-cta-name="learn-more" data-product-category="Accounts" data-interaction-type="click">Learn More &rarr;</a>
+
         </article>
         <article class="feature-card reveal">
           <div class="icon-box">💳</div>
@@ -178,7 +183,8 @@
             <li>Fraud protection and digital card controls</li>
             <li>No foreign transaction fees</li>
           </ul>
-          <a href="cards.html" class="text-link">Learn More &rarr;</a>
+          <a href="cards.html" class="text-link" data-page-section="product-categories" data-cta-name="learn-more" data-product-category="Cards" data-interaction-type="click">Learn More &rarr;</a>
+
         </article>
         <article class="feature-card reveal">
           <div class="icon-box">💸</div>
@@ -189,7 +195,8 @@
             <li>Flexible repayment terms</li>
             <li>Online application in minutes</li>
           </ul>
-          <a href="loans.html" class="text-link">Learn More &rarr;</a>
+          <a href="loans.html" class="text-link" data-page-section="product-categories" data-cta-name="learn-more" data-product-category="Loans" data-interaction-type="click">Learn More &rarr;</a>
+
         </article>
         <article class="feature-card reveal">
           <div class="icon-box">📈</div>
@@ -200,7 +207,8 @@
             <li>Market insights and watchlists</li>
             <li>Real-time investment tracking</li>
           </ul>
-          <a href="investments.html" class="text-link">Learn More &rarr;</a>
+          <a href="investments.html" class="text-link" data-page-section="product-categories" data-cta-name="learn-more" data-product-category="Investments" data-interaction-type="click">Learn More &rarr;</a>
+
         </article>
       </div>
     </section>
@@ -211,94 +219,25 @@
       </div>
       <p style="max-width:800px; margin:0 auto 2rem; text-align:center; color:var(--text-muted);">Choose a category below to compare products with the features that matter most for your needs.</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; justify-items:center;">
-        <a href="accounts.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;">Compare Accounts</a>
-        <a href="cards.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;">Compare Credit Cards</a>
-        <a href="loans.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;">Compare Loans</a>
-        <a href="business-banking.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;">Compare Business Banking</a>
+        <a href="accounts.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;" data-page-section="compare-teaser" data-cta-name="compare-accounts" data-product-category="Accounts" data-interaction-type="click">Compare Accounts</a>
+        <a href="cards.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;" data-page-section="compare-teaser" data-cta-name="compare-cards" data-product-category="Cards" data-interaction-type="click">Compare Credit Cards</a>
+        <a href="loans.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;" data-page-section="compare-teaser" data-cta-name="compare-loans" data-product-category="Loans" data-interaction-type="click">Compare Loans</a>
+        <a href="business-banking.html" class="btn btn-outline" style="width:100%; max-width:260px; text-align:center;" data-page-section="compare-teaser" data-cta-name="compare-business" data-product-category="Business Banking" data-interaction-type="click">Compare Business Banking</a>
+
       </div>
     </section>
 
-    <section class="tools-section">
-      <div class="section-title reveal">
-        <h2>Smart Banking Tools</h2>
-      </div>
-      <div class="grid-4">
-        <article class="feature-card reveal">
-          <div class="icon-box">🧠</div>
-          <h3>Find the Right Product</h3>
-          <p>Answer a few quick questions to discover the best MDS Bank solution for your needs.</p>
-          <a href="quiz.html" class="btn btn-primary learn-more-btn">Start Quiz</a>
-        </article>
-        <article class="feature-card reveal">
-          <div class="icon-box">🧮</div>
-          <h3>Loan EMI Calculator</h3>
-          <p>Estimate monthly payments based on loan amount, interest rate, and term.</p>
-          <a href="loan-calculator.html" class="btn btn-primary learn-more-btn">Calculate EMI</a>
-        </article>
-        <article class="feature-card reveal">
-          <div class="icon-box">🏦</div>
-          <h3>Open an Account</h3>
-          <p>Complete our step-by-step application and choose the right product.</p>
-          <a href="open-account.html" class="btn btn-primary learn-more-btn">Open Account</a>
-        </article>
-        <article class="feature-card reveal">
-          <div class="icon-box">📍</div>
-          <h3>Branch & ATM Locator</h3>
-          <p>Find nearby ATMs, branches, and cash deposit centers fast.</p>
-          <a href="locator.html" class="btn btn-primary learn-more-btn">Find Locations</a>
-        </article>
-      </div>
-    </section>
+    
+    <!-- Removed: Smart Banking Tools (moved to internal pages) -->
 
-    <section class="digital-services">
-      <div class="section-title reveal">
-        <h2>Digital Services for Modern Banking</h2>
-      </div>
-      <div class="service-grid">
-        <article class="service-card reveal">
-          <div class="icon-box">💸</div>
-          <h3>Fund Transfer</h3>
-          <p>Move money instantly between your accounts or to external beneficiaries.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="icon-box">🧾</div>
-          <h3>Bill Payment</h3>
-          <p>Pay utilities, subscriptions, and recurring bills from a single dashboard.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="icon-box">📱</div>
-          <h3>Mobile Recharge</h3>
-          <p>Top up mobile wallets and prepaid plans directly from your MDS Bank account.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="icon-box">🔗</div>
-          <h3>UPI / QR Payments</h3>
-          <p>Send or receive payments instantly using UPI IDs and QR codes.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="icon-box">📄</div>
-          <h3>Statement Download</h3>
-          <p>Download account and card statements for record keeping and reconciliation.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-        <article class="service-card reveal">
-          <div class="icon-box">👥</div>
-          <h3>Manage Beneficiaries</h3>
-          <p>Add, verify, and organize payees for faster recurring transfers.</p>
-          <a href="support.html" class="text-link">Learn More &rarr;</a>
-        </article>
-      </div>
-    </section>
+    <!-- Removed: Digital Services detailed section (moved to internal pages) -->
 
-    <section class="advisories">
+    <section class="advisories" style="margin-top: 0;">
       <div class="section-title reveal">
         <h2>Latest Advisories</h2>
       </div>
       <div class="advisory-grid">
+
         <article class="advisory-card reveal">
           <div class="advisory-meta">
             <span class="advisory-badge">Security</span>
@@ -329,32 +268,6 @@
       </div>
     </section>
 
-    <section class="security-awareness reveal">
-      <div class="section-title">
-        <h2>Bank Safely with MDS</h2>
-      </div>
-      <div class="security-grid">
-        <article class="security-card reveal">
-          <div class="icon-box">🔐</div>
-          <h3>Never share OTP</h3>
-          <p>Protect your one-time password and never disclose it over phone, email, or SMS.</p>
-        </article>
-        <article class="security-card reveal">
-          <div class="icon-box">🧾</div>
-          <h3>Verify official links</h3>
-          <p>Always confirm you’re on mdsbank.example or the official app before logging in.</p>
-        </article>
-        <article class="security-card reveal">
-          <div class="icon-box">🚨</div>
-          <h3>Report suspicious activity</h3>
-          <p>Contact us immediately if you suspect an unauthorized charge or phishing attempt.</p>
-        </article>
-      </div>
-      <div class="text-center" style="margin-top:2rem;">
-        <a href="security.html" class="btn btn-primary">Security Center</a>
-      </div>
-    </section>
-
     <section class="cta-panel reveal">
       <div class="grid-2 align-items-center" style="gap:2rem;">
         <div>
@@ -369,11 +282,11 @@
             <li>View account activity in real time</li>
           </ul>
           <div class="cta-actions">
-            <a href="apply.html" class="btn btn-primary">Open Account</a>
-            <a href="app.html" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.35);">Download App</a>
+            <a href="apply.html" class="btn btn-primary" data-page-section="digital-banking-cta" data-cta-name="open-account" data-product-name="" data-product-category="Accounts" data-interaction-type="click">Open Account</a>
+            <a href="app.html" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.35);" data-page-section="digital-banking-cta" data-cta-name="download-app" data-product-name="" data-product-category="Digital Banking" data-interaction-type="click">Download App</a>
           </div>
         </div>
-        <div class="cta-visual">
+        <div class="cta-visual" aria-hidden="true">
           <div class="feature-card" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); color: white; box-shadow: none;">
             <div class="icon-box" style="background: rgba(255,255,255,0.16); color: white;">📲</div>
             <h3>Digital banking built for every day</h3>
@@ -388,126 +301,43 @@
       </div>
     </section>
 
-    <section class="testimonial-section reveal">
-      <div class="section-title">
-        <h2>Trusted by Customers Nationwide</h2>
-      </div>
-      <div class="stats-grid">
-        <article class="stat-card reveal">
-          <strong>98%</strong>
-          <p>sample customer satisfaction</p>
-        </article>
-        <article class="stat-card reveal">
-          <strong>1M+</strong>
-          <p>demo digital transactions</p>
-        </article>
-        <article class="stat-card reveal">
-          <strong>24/7</strong>
-          <p>secure banking support</p>
-        </article>
-      </div>
-      <div class="testimonial-grid">
-        <article class="testimonial-card reveal">
-          <h3>“Fast, secure, and friendly service.”</h3>
-          <p>“I opened my account in minutes and the support team helped me set up transfers quickly.”</p>
-        </article>
-        <article class="testimonial-card reveal">
-          <h3>“The app makes business banking so much easier.”</h3>
-          <p>“Managing payroll and vendor payments has never been smoother.”</p>
-        </article>
-        <article class="testimonial-card reveal">
-          <h3>“I feel confident banking safely online.”</h3>
-          <p>“The security guidance and fraud alerts make me trust MDS Bank with my money.”</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="business-banking">
-      <div class="section-title reveal">
-        <h2>Business Banking for Growth</h2>
-      </div>
-      <div class="grid-4">
-        <article class="business-card reveal">
-          <h3>Business Accounts</h3>
-          <p>Manage company funds with tailored business checking and savings alongside efficient cash flow tools.</p>
-        </article>
-        <article class="business-card reveal">
-          <h3>Corporate Payments</h3>
-          <p>Automate vendor payments, schedule payroll, and send secure transfers with flexible authorization controls.</p>
-        </article>
-        <article class="business-card reveal">
-          <h3>Merchant Services</h3>
-          <p>Accept payments online and in-store with integrated payment tools for card, QR, and digital wallets.</p>
-        </article>
-        <article class="business-card reveal">
-          <h3>Payroll Solutions</h3>
-          <p>Streamline payroll disbursements, employee payments, and wage management with digital banking tools.</p>
-        </article>
-      </div>
-      <div class="text-center reveal" style="margin-top:1.75rem;">
-        <a href="business-banking.html" class="btn btn-primary">Explore Business Banking</a>
-      </div>
-    </section>
-
-    <section class="card-services-home">
-      <div class="section-title reveal">
-        <h2>Card Services</h2>
-      </div>
-      <div class="grid-4">
-        <a href="card-services.html" class="service-card reveal">
-          <div class="icon-box">✅</div>
-          <h3>Activate Card</h3>
-          <p>Learn how to activate your new debit or credit card securely.</p>
-        </a>
-        <a href="card-services.html" class="service-card reveal">
-          <div class="icon-box">🔒</div>
-          <h3>Block Lost Card</h3>
-          <p>Quickly block a lost card to protect your account and prevent fraud.</p>
-        </a>
-        <a href="card-services.html" class="service-card reveal">
-          <div class="icon-box">♻️</div>
-          <h3>Replace Card</h3>
-          <p>Request a replacement card with fast delivery and activation support.</p>
-        </a>
-        <a href="card-services.html" class="service-card reveal">
-          <div class="icon-box">⚙️</div>
-          <h3>Set Card Limit</h3>
-          <p>Manage your spending limits and control your card usage from the app.</p>
-        </a>
-      </div>
-    </section>
-
-    <section style="background: var(--dark-bg); color:white;">
+    <section style="background: var(--dark-bg); color:white;" class="quick-links-section">
       <div class="section-title reveal">
         <h2>Customer Service Quick Links</h2>
       </div>
       <div class="quick-links-grid">
-        <a href="locator.html" class="quick-link-card reveal">
+          <a href="locator.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="atm-branch-locator" data-interaction-type="click">
+
           <div class="icon-box">📍</div>
           <h3>ATM / Branch Locator</h3>
           <p>Find the nearest branch, ATM, or cash deposit location.</p>
         </a>
-        <a href="support.html" class="quick-link-card reveal">
+        <a href="support.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="help-center" data-interaction-type="click">
+
           <div class="icon-box">🛠️</div>
           <h3>Help Center</h3>
           <p>Get support for online banking, cards, and account services.</p>
         </a>
-        <a href="faq.html" class="quick-link-card reveal">
+        <a href="faq.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="faq" data-interaction-type="click">
+
           <div class="icon-box">❓</div>
           <h3>FAQ</h3>
           <p>Find answers to common questions about accounts, security, and payments.</p>
         </a>
-        <a href="rates.html" class="quick-link-card reveal">
+        <a href="rates.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="rates-charges" data-interaction-type="click">
+
           <div class="icon-box">📊</div>
           <h3>Rates & Charges</h3>
           <p>Review current fees, account pricing, and service charges.</p>
         </a>
-        <a href="terms.html" class="quick-link-card reveal">
+        <a href="terms.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="terms" data-interaction-type="click">
+
           <div class="icon-box">📜</div>
           <h3>Terms & Conditions</h3>
           <p>Read the terms governing MDS Bank accounts and online services.</p>
         </a>
-        <a href="contact.html" class="quick-link-card reveal">
+        <a href="contact.html" class="quick-link-card reveal" data-page-section="quick-links" data-cta-name="contact-support" data-interaction-type="click">
+
           <div class="icon-box">💬</div>
           <h3>Contact Support</h3>
           <p>Send a message or request help from our banking support team.</p>
@@ -515,54 +345,9 @@
       </div>
     </section>
 
-    <section style="background: var(--dark-bg); color:white;">
-      <div class="grid-2 align-items-center" style="align-items:center; gap:2rem;">
-        <div class="reveal">
-          <span style="color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:2px; font-size:0.8rem;">Watch & Learn</span>
-          <h2 style="color:white; margin-top:0.5rem;">Banking Safety Awareness</h2>
-          <p class="mb-4" style="color:rgba(255,255,255,0.7);">Watch guidance on how to protect your account from fraud, phishing, and OTP scams.</p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-            <a href="security.html" class="btn btn-primary">View Security Center</a>
-            <a href="contact.html" class="btn btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);">Contact Support</a>
-          </div>
-        </div>
-        <div class="video-responsive reveal">
-          <iframe
-            src="https://www.youtube.com/embed/oJx9DpXtmAE"
-            title="Banking Safety Awareness Video"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </section>
 
-    <!-- Download Resources Section -->
-    <section>
-      <div class="section-title reveal">
-        <h2>Downloadable Resources</h2>
-      </div>
-      <div class="grid-3">
-        <div class="feature-card reveal" style="text-align:center;">
-          <div class="icon-box">&#128196;</div>
-          <h3>Fee Schedule</h3>
-          <p>Complete breakdown of all account fees and charges.</p>
-          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Fee_Schedule')" style="width:100%;">Download PDF</button>
-        </div>
-        <div class="feature-card reveal" style="text-align:center;">
-          <div class="icon-box">&#128203;</div>
-          <h3>Account Agreement</h3>
-          <p>Terms and conditions for all MDS Bank accounts.</p>
-          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Account_Agreement')" style="width:100%;">Download PDF</button>
-        </div>
-        <div class="feature-card reveal" style="text-align:center;">
-          <div class="icon-box">&#128218;</div>
-          <h3>Security Guidelines</h3>
-          <p>How we keep your accounts and data safe.</p>
-          <button class="btn btn-outline download-link" onclick="downloadPDF('MDS_Bank_Security_Guidelines')" style="width:100%;">Download PDF</button>
-        </div>
-      </div>
-    </section>
+
+    <!-- Removed: Downloadable Resources (moved to internal pages) -->
   </main>
 
   <footer>

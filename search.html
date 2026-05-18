@@ -20,6 +20,14 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9NJ362M"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
+  <div class="demo-disclaimer" role="note" aria-label="Educational demo disclaimer">
+    <div class="demo-disclaimer-inner">
+      <div>
+        <div class="demo-disclaimer-title">Educational Demo Website</div>
+      </div>
+      <div class="demo-disclaimer-text">Educational Demo Website — MDS Bank is a fictional banking project for UI/UX and analytics practice. Do not enter real personal, banking, card, OTP, password, or financial information.</div>
+    </div>
+  </div>
 
   <header>
     <div class="nav-container">
@@ -51,9 +59,10 @@
           <h1>Search MDS Bank</h1>
           <p style="color:rgba(255,255,255,0.75); max-width:620px; margin:0 auto;">Find the fastest path to accounts, cards, loans, digital banking help, and contact resources.</p>
           <div class="search-container" style="margin-top:2rem;">
-            <input type="text" id="search-page-input" class="search-input" placeholder="Search accounts, cards, loans, support..." />
-            <button class="btn btn-primary search-btn" type="button" onclick="performSearch()">Search</button>
-
+            <form class="search-form" id="searchForm" action="search.html" method="GET" style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+              <input type="search" id="search-page-input" name="q" class="search-input" placeholder="Search accounts, cards, loans, support..." required />
+              <button class="btn btn-primary search-btn" type="submit">Search</button>
+            </form>
           </div>
           <p id="search-summary" style="color:rgba(255,255,255,0.7); margin-top:1rem;"></p>
         </div>
@@ -149,16 +158,44 @@
       { title: 'Loan Calculator', desc: 'Estimate monthly payments for personal, auto, and home loans.', url: 'loan-calculator.html', category: 'Loans', keywords: 'loan calculator monthly payment estimate APR' }
     ];
 
+    function handleSearchSubmit(event) {
+      if (event) event.preventDefault();
+
+      var form = event && event.target ? event.target : null;
+      if (!form) return;
+
+      var input = form.querySelector('input[name="q"]');
+      var searchTerm = input ? String(input.value || '').trim() : '';
+
+      if (!searchTerm) {
+        return;
+      }
+
+      window.location.href = `search.html?q=${encodeURIComponent(searchTerm)}`;
+    }
+
+    document.querySelectorAll('form.search-form').forEach(function (form) {
+      form.addEventListener('submit', handleSearchSubmit);
+    });
+
     document.addEventListener('DOMContentLoaded', function () {
       var params = new URLSearchParams(window.location.search);
       var q = params.get('q');
+
       if (q) {
-        document.getElementById('search-page-input').value = q;
-        performSearch();
-      } else {
-        document.getElementById('search-summary').textContent = 'Search MDS Bank for pages, products, support, or downloads.';
+        var input = document.getElementById('search-page-input');
+        if (input) input.value = q;
+        if (typeof window.performSearch === 'function') {
+          window.performSearch();
+        }
+        return;
       }
+
+      var summary = document.getElementById('search-summary');
+      if (summary) summary.textContent = 'Search MDS Bank for pages, products, support, or downloads.';
     });
+
+
   </script>
 </body>
 </html>

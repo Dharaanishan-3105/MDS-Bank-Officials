@@ -551,7 +551,10 @@ function getSearchQuery() {
 
 window.performSearch = function () {
   var input = document.getElementById('search-page-input');
-  var query = input ? input.value.trim() : '';
+  var query = input ? String(input.value || '').trim() : '';
+
+
+
   var summary = document.getElementById('search-summary');
   var container = document.getElementById('search-results');
   var noResults = document.getElementById('no-results');
@@ -564,6 +567,7 @@ window.performSearch = function () {
     noResults.style.display = 'none';
     return;
   }
+
 
   var queryLower = query.toLowerCase();
   var terms = queryLower.split(/\s+/).filter(function (term) { return term.length > 1; });
