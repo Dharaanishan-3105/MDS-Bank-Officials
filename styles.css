@@ -1916,9 +1916,248 @@ footer {
 }
 
 /* ═══════════════════════════════
+   VIRTUAL TOUR / EXPERIENCE CENTER (VIDEO SECTION)
+   ═══════════════════════════════ */
+.experience-center{
+  position: relative;
+  background: var(--dark-bg);
+  color: white;
+  padding: 5rem 5%;
+  overflow: hidden;
+}
+
+.experience-center-bg{
+  position:absolute;
+  inset:-40% -20% auto -20%;
+  height: 650px;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(27,79,114,0.55) 0%, transparent 55%),
+    radial-gradient(circle at 80% 30%, rgba(0,184,148,0.40) 0%, transparent 60%),
+    radial-gradient(circle at 50% 90%, rgba(212,167,69,0.22) 0%, transparent 55%);
+  filter: blur(30px);
+  opacity: 0.55;
+  animation: experienceGlowFloat 9s ease-in-out infinite;
+}
+
+@keyframes experienceGlowFloat{
+  0%,100%{ transform: translate3d(0,0,0) scale(1); }
+  50%{ transform: translate3d(16px,-14px,0) scale(1.02); }
+}
+
+.experience-center .container{
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.experience-center-heading{
+  text-align: center;
+  margin-bottom: 2.25rem;
+}
+
+.experience-center-heading .section-title h2{
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  color: rgb(11, 10, 10);
+  margin-bottom: 1rem;
+}
+
+.experience-center-subtitle{
+  color: rgba(7, 7, 7, 0.78);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.experience-center-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.experience-video-card{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 24px;
+  padding: 1.2rem;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-video-card::after{
+  content:'';
+  position:absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(27,79,114,0.0), rgba(0,184,148,0.22));
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.experience-video-card:hover{
+  transform: translateY(-8px);
+  border-color: rgba(214,234,248,0.7);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.5), var(--shadow-glow);
+}
+
+.experience-video-card:hover::after{ opacity: 1; }
+
+.experience-video-card-inner{
+  position: relative;
+  z-index: 1;
+}
+
+.experience-video-media{
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #07131f;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 1px rgba(0,184,148,0.10);
+}
+
+.experience-video-media iframe,
+.experience-video-media video{
+  display:block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+}
+
+/* YouTube lazy placeholder */
+.youtube-lazy{
+  width:100%;
+  aspect-ratio: 16/9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.experience-video-fallback{
+  padding: 1rem;
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+  text-align:center;
+}
+
+.experience-play-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+  gap: 0.7rem;
+  background: rgba(0,0,0,0.25);
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease), opacity 0.35s var(--ease);
+  outline: none;
+}
+
+.experience-play-overlay:focus-visible{
+  box-shadow: 0 0 0 4px rgba(0,184,148,0.28);
+}
+
+.experience-play-icon{
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(27,79,114,0.95), rgba(0,184,148,0.95));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: white;
+  font-size: 1.35rem;
+  box-shadow: 0 14px 45px rgba(0,184,148,0.25);
+  transform: translateY(0);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.experience-play-text{
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.92);
+  font-family: var(--font-secondary);
+}
+
+.experience-video-media:hover .experience-play-overlay{
+  background: rgba(0,0,0,0.15);
+}
+
+.experience-video-media:hover .experience-play-icon{
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 18px 55px rgba(0,184,148,0.35);
+}
+
+.experience-play-overlay[aria-hidden="true"]{ pointer-events:none; }
+
+/* --- Improve video overlay persistence & text contrast ---
+   These overrides ensure the overlay is always visually present, but doesn’t block playback. */
+.experience-play-overlay{
+  /* keep it visible even after play starts (we’ll toggle opacity via JS) */
+  z-index: 5;
+  background: rgba(0,0,0,0.35);
+}
+
+/* When playing, keep the play overlay subtle but present */
+.experience-video-media.is-playing .experience-play-overlay{
+  opacity: 0.55;
+  background: rgba(0,0,0,0.25);
+}
+
+/* Hide helper meta momentarily while playing for cleaner look */
+.experience-video-media.is-playing + .experience-video-meta,
+.experience-video-media.is-playing ~ .experience-video-meta{
+  opacity: 0;
+}
+
+.experience-video-meta{
+  /* ensure meta text is readable on dark */
+  background: rgba(255,255,255,0.02);
+  border-radius: 14px;
+}
+
+
+.experience-video-meta{
+  padding: 1.1rem 0.2rem 0.2rem;
+  text-align: center;
+}
+
+.experience-video-label{
+  font-weight: 800;
+  font-family: var(--font-secondary);
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 0.35rem;
+}
+
+.experience-video-description{
+  color: rgba(255,255,255,0.72);
+  font-size: 0.98rem;
+}
+
+/* Mobile: stacked layout */
+@media (max-width: 900px){
+  .experience-center{ padding: 4rem 5%; }
+  .experience-center-grid{ grid-template-columns: 1fr; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .experience-center-bg{ animation: none; }
+  .experience-video-card{ transition: none; }
+}
+
+/* ═══════════════════════════════
    DEMO DISCLAIMER BANNER
    ═══════════════════════════════ */
 .demo-disclaimer {
+
   width: 100%;
   background: linear-gradient(135deg, rgba(212, 167, 69, 0.18), rgba(27, 79, 114, 0.10));
   border-bottom: 1px solid rgba(212, 167, 69, 0.35);

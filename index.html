@@ -163,6 +163,8 @@
       </div>
       <div class="grid-4">
         <article class="feature-card reveal">
+
+
           <div class="icon-box">💰</div>
           <h3>High-Yield Savings</h3>
           <p>Competitive earnings, flexible withdrawals, and clear fee transparency.</p>
@@ -213,7 +215,105 @@
       </div>
     </section>
 
+    <!-- Virtual Tour / Experience Center (Premium Video Section) -->
+    <section class="experience-center" id="experience-center" aria-label="Virtual Tour / Experience Center">
+      <div class="experience-center-bg" aria-hidden="true"></div>
+
+      <div class="container">
+        <header class="experience-center-heading">
+          <div class="section-title reveal" style="margin-bottom: 1.25rem;">
+            <h2>Explore MDS Bank Digital Experience</h2>
+          </div>
+          <p class="experience-center-subtitle reveal">Step into a premium walkthrough—secure, intuitive, and designed to feel like banking should.</p>
+        </header>
+
+        <div class="experience-center-grid" role="list">
+          <!-- YouTube embed card (lazy-loaded iframe) -->
+          <article class="experience-video-card reveal" role="listitem" aria-label="YouTube video preview">
+            <div class="experience-video-card-inner">
+              <div class="experience-video-media" data-video-provider="youtube">
+                <!-- Lazy-loading target: JS will replace this element with the iframe when visible -->
+                <div
+                  class="youtube-lazy"
+                  id="experience-youtube-lazy"
+                  role="region"
+                  aria-label="Virtual tour video (YouTube)">
+                  <div class="experience-video-fallback" role="note">
+                    <p>
+                      Your browser is preventing the embedded video from loading.
+                      <br />Please try again later.
+                    </p>
+                  </div>
+                  <noscript>
+                    <div class="experience-video-fallback" role="note">
+                      Embedded YouTube video requires JavaScript.
+                    </div>
+                  </noscript>
+                </div>
+
+                <!-- Custom play overlay (visual only; iframe will handle real playback) -->
+                <button
+                  type="button"
+                  class="experience-play-overlay"
+                  aria-label="Play YouTube virtual tour"
+                  data-youtube-overlay>
+                  <span class="experience-play-icon" aria-hidden="true">▶</span>
+                  <span class="experience-play-text">Play Virtual Tour</span>
+                </button>
+              </div>
+
+              <div class="experience-video-meta">
+                <p class="experience-video-label">YouTube Embedded Tour</p>
+                <p class="experience-video-description">Premium digital walkthrough with cinematic pacing.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Local MP4 card -->
+          <article class="experience-video-card reveal" role="listitem" aria-label="Local MP4 video preview">
+            <div class="experience-video-card-inner">
+              <div class="experience-video-media" data-video-provider="mp4">
+                <video
+                  id="experience-mp4"
+                  class="experience-mp4"
+                  controls
+                  preload="metadata"
+                  playsinline
+                  aria-label="MDS Bxnx Tour video player"
+                  poster=""
+                >
+                  <!-- Netlify/production-friendly local file reference (served from site root) -->
+                  <source src="/MDS%20Bxnx%20Tour.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+
+                <!-- Stylish custom overlay for first impression; clicking focuses the native controls -->
+                <button
+                  type="button"
+                  class="experience-play-overlay experience-play-overlay--mp4"
+                  aria-label="Play local video"
+                  data-mp4-overlay>
+                  <span class="experience-play-icon" aria-hidden="true">▶</span>
+                  <span class="experience-play-text">Play Experience</span>
+                </button>
+
+                <div class="experience-video-fallback" role="note" hidden>
+                  Unable to load the local video.
+                </div>
+              </div>
+
+              <div class="experience-video-meta">
+                <p class="experience-video-label">Local Experience Center</p>
+                <p class="experience-video-description">Offline-ready playback using your local MP4 source.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section-overview">
+
       <div class="section-title reveal">
         <h2>Compare the right solution</h2>
       </div>
@@ -390,8 +490,10 @@
     </div>
   </footer>
 
+  <script src="experience-center.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
 
 

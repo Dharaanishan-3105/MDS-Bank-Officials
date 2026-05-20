@@ -930,12 +930,37 @@ function initAccordions() {
 
 function initScrollReveal() {
   var elements = document.querySelectorAll('.reveal');
+  if (!elements.length) return;
+
+
+  // Production-friendly reveal: IntersectionObserver for better performance than timers.
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { root: null, threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+    );
+
+    elements.forEach(function (el) {
+      observer.observe(el);
+    });
+    return;
+  }
+
+  // Fallback for older browsers.
   elements.forEach(function (el, index) {
     setTimeout(function () {
       el.classList.add('visible');
     }, 120 * index);
   });
 }
+
 
 function initDashboardFilters() {
   var selects = document.querySelectorAll('.dashboard-filter');
@@ -996,8 +1021,10 @@ function updateDashboardMetrics() {
 }
 
 function initVideoEngagement() {
+
   var iframe = document.getElementById('promo-video');
   if (!iframe) return;
+
 
   window.onYouTubeIframeAPIReady = function () {
     var player = new YT.Player('promo-video', {
@@ -1068,7 +1095,9 @@ function init() {
   initOpenAccountPage();
   initCompareFeature();
   initVideoEngagement();
+  initExperienceCenter();
   initNavigationTracking();
+
   initDownloadTracking();
   initCTATracking();
   initFormFocusTracking();
