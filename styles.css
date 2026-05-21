@@ -1915,6 +1915,20 @@ footer {
   transform: translateY(0);
 }
 
+/* Compare page safety: ensures nothing blocks clicking compare buttons */
+.comparison-builder {
+  position: relative;
+  z-index: 120;
+}
+
+.compare-select-btn,
+.compare-clear-btn,
+.compare-run-btn {
+  position: relative;
+  z-index: 121;
+}
+
+
 /* ═══════════════════════════════
    VIRTUAL TOUR / EXPERIENCE CENTER (VIDEO SECTION)
    ═══════════════════════════════ */

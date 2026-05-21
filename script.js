@@ -442,34 +442,463 @@ function clearComparisonSelection() {
 }
 
 function initCompareFeature() {
+  /*
+    Compare rebuild TODO:
+    - Replace this implementation with a full centralized compare state + dynamic UI.
+    - Ensure GA4 events fire ONLY on real actions.
+
+    For now, this function exists to keep basic add/remove working.
+  */
+  // Compare feature: make selection buttons work on ANY page.
+  // We use a separate container for the store UI panel (if present), but attach click handling globally.
   var wrapper = document.querySelector('.comparison-builder');
-  if (!wrapper) return;
+  // wrapper is the panel/table area; selection buttons exist even when it is missing.
 
-  var compareButtons = document.querySelectorAll('.compare-select-btn');
-  compareButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      var productName = button.dataset.productName;
-      compareProductToggle(productName);
+  // If wrapper doesn't exist, still enable add/remove without crashing.
+  // We'll only render the comparison table when wrapper is present.
+
+
+  var COMPARE_STORAGE_KEY = 'mds_compare_selected_products_v1';
+  var COMPARE_SESSION_ID_KEY = 'mds_compare_session_id_v1';
+
+  var cfg = {
+    maxLimit: 3,
+    storage: 'localStorage', // change to 'sessionStorage' if desired
+    page: {
+      location: (window.location && window.location.href) || '',
+      title: (document && document.title) || ''
+    }
+  };
+
+  function getStorage() {
+    try {
+      if (cfg.storage === 'sessionStorage') return window.sessionStorage;
+      return window.localStorage;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function safeJsonParse(s) {
+    if (!s) return null;
+    try { return JSON.parse(s); } catch (e) { return null; }
+  }
+
+  function normalizeProduct(productName, productCategory) {
+    var name = String(productName || '').trim();
+    var category = String(productCategory || '').trim();
+    if (!name) return null;
+    // stable id: name is already unique in this dataset
+    return {
+      id: name,
+      name: name,
+      category: category || 'Unknown'
+    };
+  }
+
+  function getSessionId() {
+    try {
+      var store = getStorage();
+      if (!store) return 'no-storage';
+      var existing = store.getItem(COMPARE_SESSION_ID_KEY);
+      if (existing) return existing;
+      var created = 'cmp_' + Math.random().toString(16).slice(2) + '_' + Date.now();
+      store.setItem(COMPARE_SESSION_ID_KEY, created);
+      return created;
+    } catch (e) {
+      return 'cmp_' + Math.random().toString(16).slice(2) + '_' + Date.now();
+    }
+  }
+
+  var sessionId = getSessionId();
+
+  function buildCommonTrackingParams(extra) {
+    var state = store.getSelected();
+    var selectedProducts = state.map(function (p) { return p.name; });
+    return Object.assign({
+      product_name: extra && extra.product_name ? extra.product_name : '',
+      product_category: extra && extra.product_category ? extra.product_category : '',
+      compare_count: state.length,
+      selected_products: JSON.stringify(selectedProducts),
+      error_type: extra && extra.error_type ? extra.error_type : '',
+      compare_limit: String(cfg.maxLimit),
+      page_location: cfg.page.location,
+      page_title: cfg.page.title,
+      compare_source: (extra && extra.compare_source) ? extra.compare_source : 'ui',
+      compare_method: (extra && extra.compare_method) ? extra.compare_method : 'click',
+      compare_session_id: sessionId
+    }, extra || {});
+  }
+
+  function track(eventName, params) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({ event: eventName }, params));
+    } catch (e) {
+      // no-op
+    }
+
+    if (window.__COMPARE_DEBUG__) {
+      // eslint-disable-next-line no-console
+      console.log('[CompareTrack]', eventName, params);
+    }
+  }
+
+  var store = (function () {
+    var selectedProducts = [];
+    var hydrated = false;
+
+    function persist() {
+      var s = getStorage();
+      if (!s) return;
+      try {
+        s.setItem(COMPARE_STORAGE_KEY, JSON.stringify(selectedProducts));
+      } catch (e) {}
+    }
+
+    function hydrate() {
+      if (hydrated) return;
+      hydrated = true;
+      var s = getStorage();
+      if (!s) return;
+      var raw = s.getItem(COMPARE_STORAGE_KEY);
+      var arr = safeJsonParse(raw);
+      if (Array.isArray(arr)) {
+        selectedProducts = arr
+          .map(function (x) {
+            var p = normalizeProduct(x && x.name, x && x.category);
+            return p ? p : null;
+          })
+          .filter(Boolean);
+      }
+    }
+
+    function getSelected() {
+      hydrate();
+      return selectedProducts.slice();
+    }
+
+    function setSelected(next) {
+      selectedProducts = next.slice();
+      persist();
+    }
+
+    function hasProduct(id) {
+      return selectedProducts.some(function (p) { return p.id === id; });
+    }
+
+    function add(product) {
+      hydrate();
+      var p = normalizeProduct(product && product.name, product && product.category);
+      if (!p) return { ok: false, reason: 'invalid_product' };
+
+      if (hasProduct(p.id)) return { ok: false, reason: 'duplicate' };
+      if (selectedProducts.length >= cfg.maxLimit) return { ok: false, reason: 'limit_reached' };
+
+      selectedProducts.push(p);
+      persist();
+      return { ok: true, product: p };
+    }
+
+    function remove(productId) {
+      hydrate();
+      var idx = selectedProducts.findIndex(function (p) { return p.id === productId; });
+      if (idx === -1) return { ok: false, reason: 'not_found' };
+      var removed = selectedProducts.splice(idx, 1)[0];
+      persist();
+      return { ok: true, product: removed };
+    }
+
+    function clear() {
+      hydrate();
+      selectedProducts = [];
+      persist();
+      return { ok: true };
+    }
+
+    function canSubmit() {
+      hydrate();
+      return selectedProducts.length >= 2;
+    }
+
+    return {
+      getSelected: getSelected,
+      add: add,
+      remove: remove,
+      clear: clear,
+      canSubmit: canSubmit
+    };
+  })();
+
+  // Patch old render logic to use store state
+  function renderComparisonTableFromStore() {
+    var selected = store.getSelected().map(function (p) { return p.name; });
+
+    // Keep existing HTML structure but remove reliance on compareSelectionState
+    var output = wrapper.querySelector('.compare-output');
+    var messageEl = wrapper.querySelector('.comparison-message');
+    var compareActionButtons = wrapper.querySelectorAll('.comparison-action-btn[data-action-type="compare"], .compare-run-btn');
+    if (!output) return;
+
+    // Close to avoid accidental auto-open: table should only be visible when valid
+    // (renderComparisonTableFromStore will render empty state when invalid)
+
+
+    if (selected.length < 2) {
+      output.innerHTML = '<div class="comparison-empty">Select at least 2 products to compare.</div>';
+      if (messageEl) {
+        messageEl.textContent = selected.length === 1 ? 'Select one more product to compare.' : 'Select at least 2 products to compare.';
+      }
+      compareActionButtons.forEach(function (btn) { btn.disabled = true; });
+      return;
+    }
+
+    if (messageEl) {
+      messageEl.textContent = selected.length + ' product' + (selected.length === 1 ? '' : 's') + ' selected for comparison.';
+    }
+    compareActionButtons.forEach(function (btn) { btn.disabled = false; });
+
+    var category = wrapper.dataset.comparisonCategory || 'generic';
+    var rows = getComparisonRows(wrapper);
+    var headerCells = selected.map(function (name) { return '<th>' + name + '</th>'; }).join('');
+
+    var bodyRows = rows.map(function (row) {
+      return '<tr><td class="comparison-row-label">' + row.label + '</td>' + selected.map(function (name) {
+        return '<td>' + (productComparisonData[name] ? productComparisonData[name][row.field] : '-') + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+
+    output.innerHTML = '<div class="comparison-table-wrapper"><table class="product-comparison-table comparison-result-table" role="table" aria-label="Product comparison"><thead><tr><th>Feature</th>' + headerCells + '</tr></thead><tbody>' + bodyRows + '</tbody></table></div>';
+  }
+
+  function updateCompareSelectionUIFromStore() {
+    var selected = store.getSelected();
+    var selectedIds = selected.map(function (p) { return p.id; });
+
+    // selection buttons
+    var addBtns = wrapper.querySelectorAll('.compare-select-btn');
+    addBtns.forEach(function (btn) {
+      var name = btn.dataset.productName;
+      var category = btn.dataset.productCategory;
+      var id = name;
+      var isSelected = selectedIds.indexOf(id) !== -1;
+      btn.textContent = isSelected ? 'Added' : 'Add to Compare';
+      btn.classList.toggle('btn-selected', isSelected);
+      btn.setAttribute('aria-pressed', String(isSelected));
+
+      // Ensure remove UX doesn't require a separate button: click toggles
+      btn.dataset._compare_category = category || '';
     });
+
+    // cards
+    var cards = wrapper.querySelectorAll('.compare-card');
+    cards.forEach(function (card) {
+      var name = card.dataset.productName;
+      var isSelected = selectedIds.indexOf(name) !== -1;
+      card.classList.toggle('compare-card-selected', isSelected);
+    });
+
+    // compare button enable/disable
+    var compareRun = wrapper.querySelectorAll('.comparison-action-btn[data-action-type="compare"], .compare-run-btn');
+    compareRun.forEach(function (btn) {
+      btn.disabled = selectedIds.length < 2;
+    });
+  }
+
+  function showToast(message, type) {
+    // minimal toast (no extra CSS required)
+    var existing = wrapper.querySelector('.compare-toast');
+    if (existing) existing.remove();
+
+    var toast = document.createElement('div');
+    toast.className = 'compare-toast';
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+    toast.style.cssText = [
+      'position:fixed',
+      'left:50%',
+      'transform:translateX(-50%)',
+      'bottom:20px',
+      'z-index:2000',
+      'padding:0.9rem 1.1rem',
+      'border-radius:14px',
+      'background:rgba(11,26,54,0.95)',
+      'color:white',
+      'border:1px solid rgba(255,255,255,0.18)',
+      'box-shadow:0 12px 40px rgba(0,0,0,0.35)',
+      'font-weight:700',
+      'max-width:92vw',
+      'text-align:center'
+    ].join(';');
+
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(function () {
+      if (toast && toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 2400);
+  }
+
+  function validateAndTrackOnSubmit() {
+    var selected = store.getSelected();
+    var selectedCount = selected.length;
+
+    var submitBtn = wrapper.querySelector('.comparison-action-btn[data-action-type="compare"], .compare-run-btn');
+    if (submitBtn) submitBtn.disabled = true;
+
+    if (!store.canSubmit()) {
+      // compare_error only for validation failures
+      var errorType = selectedCount < 2 ? 'min_items' : 'unknown';
+      var payload = buildCommonTrackingParams({
+        event_action: 'compare_submit_blocked',
+        error_type: errorType,
+        compare_count: String(selectedCount)
+      });
+      track('compare_error', payload);
+      if (submitBtn) submitBtn.disabled = false;
+      showToast('Please select at least 2 products to compare.', 'error');
+      return false;
+    }
+
+    // compare_view must fire ONLY when panel/table opens (i.e., we render the table here)
+    renderComparisonTableFromStore();
+    updateCompareSelectionUIFromStore();
+    track('compare_view', buildCommonTrackingParams({
+      compare_method: 'submit',
+      compare_source: 'ui',
+      product_name: selected[0] ? selected[0].name : '',
+      product_category: selected[0] ? selected[0].category : ''
+    }));
+
+    track('compare_submit', buildCommonTrackingParams({
+      compare_method: 'click',
+      compare_source: 'ui'
+    }));
+
+    // scroll into view for UX
+    var output = wrapper.querySelector('.compare-output');
+    if (output && output.scrollIntoView) {
+      output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    return true;
+  }
+
+  function handleAddClick(btn) {
+    var name = btn.dataset.productName;
+    var category = btn.dataset.productCategory;
+    var product = normalizeProduct(name, category);
+    if (!product) return;
+
+    var selectedBefore = store.getSelected().length;
+
+    // toggle behavior: if already selected -> remove; else add
+    var selectedIds = store.getSelected().map(function (p) { return p.id; });
+    if (selectedIds.indexOf(product.id) !== -1) {
+      var removed = store.remove(product.id);
+      if (removed && removed.ok) {
+        renderComparisonTableFromStore();
+        updateCompareSelectionUIFromStore();
+        track('compare_remove', buildCommonTrackingParams({
+          product_name: removed.product.name,
+          product_category: removed.product.category,
+          compare_count: String(store.getSelected().length),
+          compare_method: 'click',
+          compare_source: 'ui'
+        }));
+        showToast('Removed from comparison.', 'info');
+      }
+      return;
+    }
+
+    var res = store.add(product);
+    if (!res.ok) {
+      if (res.reason === 'limit_reached') {
+        track('compare_limit_reached', buildCommonTrackingParams({
+          product_name: product.name,
+          product_category: product.category,
+          error_type: 'limit_reached',
+          compare_method: 'click',
+          compare_source: 'ui'
+        }));
+        showToast('You can compare up to ' + cfg.maxLimit + ' products.', 'error');
+      } else if (res.reason === 'duplicate') {
+        track('compare_duplicate_attempt', buildCommonTrackingParams({
+          product_name: product.name,
+          product_category: product.category,
+          error_type: 'duplicate',
+          compare_method: 'click',
+          compare_source: 'ui'
+        }));
+        showToast('That product is already in your comparison.', 'error');
+      }
+      return;
+    }
+
+    // success add
+    renderComparisonTableFromStore();
+    updateCompareSelectionUIFromStore();
+
+    track('compare_add', buildCommonTrackingParams({
+      product_name: res.product.name,
+      product_category: res.product.category,
+      compare_count: String(selectedBefore + 1),
+      compare_method: 'click',
+      compare_source: 'ui'
+    }));
+
+    showToast('Added to comparison.', 'success');
+  }
+
+  function handleClearClick() {
+    store.clear();
+    renderComparisonTableFromStore();
+    updateCompareSelectionUIFromStore();
+    track('compare_clear', buildCommonTrackingParams({
+      compare_method: 'click',
+      compare_source: 'ui'
+    }));
+    showToast('Comparison cleared.', 'info');
+  }
+
+  // Event delegation: prevents double-binding bugs.
+  // IMPORTANT: do NOT rely on wrapper.contains(...) because wrapper can be null on pages
+  // where compare cards/buttons exist but the comparison panel is missing.
+  (document.body || document.documentElement).addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+
+    var addBtn = t.closest('.compare-select-btn');
+    if (addBtn) {
+      // Only handle buttons that carry the expected data attributes
+      if (addBtn.dataset && addBtn.dataset.productName) {
+        e.preventDefault();
+        handleAddClick(addBtn);
+      }
+      return;
+    }
+
+    var clearBtn = t.closest('.compare-clear-btn');
+    if (clearBtn) {
+      e.preventDefault();
+      handleClearClick();
+      return;
+    }
+
+    var compareRunBtn = t.closest('.comparison-action-btn[data-action-type="compare"], .compare-run-btn');
+    if (compareRunBtn) {
+      e.preventDefault();
+      // validateAndTrackOnSubmit needs wrapper; if wrapper missing, just no-op.
+      if (wrapper) validateAndTrackOnSubmit();
+      return;
+    }
   });
 
-  var clearButtons = wrapper.querySelectorAll('.compare-clear-btn');
-  clearButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      clearComparisonSelection();
-    });
-  });
-
-  var compareActionButtons = wrapper.querySelectorAll('.comparison-action-btn[data-action-type="compare"]');
-  compareActionButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-      renderComparisonTable();
-    });
-  });
-
-  renderComparisonTable();
-  updateCompareSelectionUI();
+  // Initial render from persisted state
+  updateCompareSelectionUIFromStore();
+  renderComparisonTableFromStore();
 }
+
 
 
 function setFieldError(field, message) {
