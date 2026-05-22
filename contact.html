@@ -92,7 +92,7 @@
           <div class="section-title" style="text-align:left; margin-bottom:2rem;">
             <h2>Send Us a Message</h2>
           </div>
-          <form id="contact-form" onsubmit="handleContactSubmit(event)">
+<form id="contact-form" data-action="contact-submit">
             <div class="form-group">
               <label class="form-label">Full Name *</label>
               <input type="text" class="form-control" id="contact-name" required placeholder="Your full name">
@@ -152,7 +152,7 @@
             </ul>
           </div>
           <div class="text-center">
-            <button class="btn btn-outline" id="live-chat-btn" style="width:100%;" onclick="handleLiveChat()">&#128172; Start Live Chat</button>
+<button class="btn btn-outline" id="live-chat-btn" style="width:100%;" type="button" data-action="live-chat">	&#128172; Start Live Chat</button>
           </div>
         </div>
       </div>
@@ -200,19 +200,7 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    function handleContactSubmit(e) {
-      e.preventDefault();
-      var topic = document.getElementById('contact-topic');
 
-      alert('Thank you! Your message has been sent. We will respond within 24 hours.');
-      e.target.reset();
-    }
-    function handleLiveChat() {
-      alert('Demo: Live chat initiated. A representative will be with you shortly.');
-    }
-
-  </script>
 </body>
 </html>
 

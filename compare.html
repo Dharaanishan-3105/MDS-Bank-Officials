@@ -14,6 +14,49 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Compare Modal */
+    .compare-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1999; display: none; align-items: center; justify-content: center; padding: 1rem; }
+    .compare-modal.active { display: flex; }
+    .compare-modal-backdrop { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
+    .compare-modal-content { position: relative; z-index: 2000; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 90vw; max-height: 90vh; overflow: auto; }
+    .compare-modal-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid #e8e8e8; background: #f9f9f9; }
+    .compare-modal-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: #666; }
+    .compare-modal-body { padding: 1.5rem; }
+
+    /* Toast */
+    .compare-toast { box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+    @keyframes slideUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+    /* Table */
+    .product-comparison-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; margin-top: 1rem; }
+    .product-comparison-table thead { background: #f9f9f9; border-bottom: 2px solid #e8e8e8; }
+    .product-comparison-table th { padding: 1rem; text-align: left; font-weight: 600; border-right: 1px solid #e8e8e8; }
+    .product-comparison-table th:last-child { border-right: none; }
+    .product-comparison-table td { padding: 1rem; border-right: 1px solid #e8e8e8; }
+    .product-comparison-table td:last-child { border-right: none; }
+    .product-comparison-table tbody tr { border-bottom: 1px solid #e8e8e8; }
+    .product-comparison-table tbody tr:hover { background: rgba(0,0,0,0.02); }
+    .comparison-row-label { font-weight: 600; background: #f9f9f9; }
+    .comparison-empty { text-align: center; padding: 2rem; color: #666; background: #f9f9f9; border-radius: 8px; border: 1px dashed #e8e8e8; }
+
+    /* Buttons */
+    .compare-select-btn { transition: all 0.2s; }
+    .compare-select-btn.btn-selected { background: var(--primary-color, #007bff); color: white; border-color: var(--primary-color, #007bff); }
+
+    /* Cards */
+    .compare-card { transition: all 0.2s; border: 2px solid #e8e8e8; }
+    .compare-card.compare-card-selected { border-color: #007bff; background: rgba(0,123,255,0.02); box-shadow: 0 4px 12px rgba(0,123,255,0.15); }
+
+    /* Message */
+    .comparison-message { display: block; text-align: center; color: #666; margin-top: 0.5rem; }
+    .comparison-actions-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    @media (max-width: 480px) {
+      .product-comparison-table { font-size: 0.8rem; }
+      .product-comparison-table th, .product-comparison-table td { padding: 0.5rem; }
+    }
+  </style>
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9NJ362M"
@@ -252,6 +295,12 @@
     </div>
   </footer>
 
+  <!-- Compare feature (single-file implementation) -->
+  <link rel="stylesheet" href="compare-styles.css" />
+  <script src="compare-system.js"></script>
+
+  <!-- Main app script (compare logic disabled inside script.js to prevent duplicate tracking/events) -->
+  <script>window.__MDS_COMPARE_MODE__ = 'compare-page';</script>
   <script src="script.js"></script>
 </body>
 </html>

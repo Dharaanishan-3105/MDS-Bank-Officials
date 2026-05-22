@@ -59,7 +59,7 @@
           <h1>How can we help?</h1>
           <div class="search-container animate-up" style="margin-top:2rem;">
             <input type="text" class="search-input" id="support-search" placeholder="Search for articles, guides, or FAQs..." />
-            <button class="btn btn-primary search-btn" id="support-search-btn" onclick="var q=document.getElementById('support-search').value;if(q)window.location='search.html?q='+encodeURIComponent(q);">Search</button>
+<button class="btn btn-primary search-btn" id="support-search-btn" type="button" data-action="support-search">Search</button>
           </div>
         </div>
       </div>
@@ -115,7 +115,7 @@
           <h3 class="mb-3">Need More Help?</h3>
           <p style="color:var(--text-muted); margin-bottom:1.5rem;">Our team is ready to assist you with any questions.</p>
           <a href="contact.html" class="btn btn-primary" style="width:100%; text-align:center; margin-bottom:1rem;">Contact Us</a>
-          <button class="btn btn-outline" id="live-chat-btn" style="width:100%;" onclick="handleLiveChat()">&#128172; Start Live Chat</button>
+<button class="btn btn-outline" id="live-chat-btn" style="width:100%;" type="button" data-action="live-chat">&#128172; Start Live Chat</button>
         </div>
       </div>
     </section>
@@ -161,12 +161,7 @@
     </div>
   </footer>
   <script src="script.js"></script>
-  <script>
-    function handleLiveChat() {
-      alert('Demo: Live chat initiated. A representative will be with you shortly.');
 
-    }
-  </script>
 </body>
 </html>
 

@@ -57,7 +57,7 @@
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="nav-search-toggle" id="nav-search-toggle" aria-label="Open search" onclick="toggleSearchOverlay()">
+<button class="nav-search-toggle" id="nav-search-toggle" aria-label="Open search" data-action="toggle-search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
         <a href="apply.html" class="btn btn-outline">Apply Now</a>
@@ -70,9 +70,9 @@
   <!-- Search Overlay (Home page only) -->
   <div id="search-overlay" class="search-overlay">
     <div class="search-overlay-inner">
-      <button class="search-overlay-close" onclick="toggleSearchOverlay()" aria-label="Close search">&times;</button>
+<button class="search-overlay-close" data-action="toggle-search" aria-label="Close search">&times;</button>
       <h2 style="color:white; margin-bottom:1.5rem; font-family:'Space Grotesk',sans-serif;">What are you looking for?</h2>
-      <form onsubmit="submitSearch(event)" style="position:relative; max-width:700px; margin:0 auto;">
+<form data-action="submit-search" style="position:relative; max-width:700px; margin:0 auto;">
         <input type="text" id="overlay-search-input" class="search-input" placeholder="Search accounts, cards, loans, support..." style="font-size:1.2rem; padding:1.2rem 5rem 1.2rem 1.5rem; border:none; box-shadow:0 8px 32px rgba(0,0,0,0.3);" autofocus />
         <button type="submit" class="btn btn-primary search-btn" style="border-radius:25px;">Search</button>
       </form>
@@ -491,6 +491,7 @@
   </footer>
 
   <script src="experience-center.js"></script>
+  <script src="tracking.js"></script>
   <script src="script.js"></script>
 </body>
 

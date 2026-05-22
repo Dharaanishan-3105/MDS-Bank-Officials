@@ -7,6 +7,12 @@ function toggleSearchOverlay() {
   var overlay = document.getElementById('search-overlay');
   if (!overlay) return;
   overlay.classList.toggle('active');
+
+  // Focus input for a11y
+  var input = document.getElementById('overlay-search-input');
+  if (input && overlay.classList.contains('active')) {
+    input.focus();
+  }
 }
 
 window.submitSearch = function (event) {
@@ -442,6 +448,10 @@ function clearComparisonSelection() {
 }
 
 function initCompareFeature() {
+  // Compare feature state/events for NON-compare pages.
+  // (compare.html uses compare-system.js)
+  if (window.__MDS_COMPARE_MODE__ === 'compare-page') return;
+
   /*
     Compare rebuild TODO:
     - Replace this implementation with a full centralized compare state + dynamic UI.
@@ -530,10 +540,14 @@ function initCompareFeature() {
     }, extra || {});
   }
 
-  function track(eventName, params) {
+function track(eventName, params) {
     try {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(Object.assign({ event: eventName }, params));
+      if (window.MDSTracking && typeof window.MDSTracking.track === 'function') {
+        window.MDSTracking.track(eventName, params);
+      } else {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({ event: eventName }, params));
+      }
     } catch (e) {
       // no-op
     }
@@ -899,6 +913,12 @@ function initCompareFeature() {
   renderComparisonTableFromStore();
 }
 
+// Ensure compare init runs exactly once per page
+// (compare-system.js auto-inits on compare.html)
+if (window.__MDS_COMPARE_MODE__ === 'compare-page') {
+  window.__MDS_COMPARE_INIT_DONE__ = true;
+}
+
 
 
 function setFieldError(field, message) {
@@ -1254,8 +1274,20 @@ function initOpenAccountPage() {
 }
 
 function initLoanCalculator() {
+
+  // Demo CTA/event tracking for loan calculator
+
   var form = document.getElementById('loan-form');
   if (!form) return;
+
+  // Support legacy markup that used inline onclick="calculateLoan()".
+  // The current page markup calls calculateLoan(); we route it to the same calculator logic.
+  window.calculateLoan = function () {
+    if (!form) return;
+    var calcBtn = form.querySelector('.emi-calculate-btn');
+    if (calcBtn && calcBtn.click) calcBtn.click();
+  };
+
   var amountEl = document.getElementById('loan-amount');
   var rateEl = document.getElementById('interest-rate');
   var termEl = document.getElementById('loan-term');
@@ -1498,9 +1530,105 @@ function initVideoEngagement() {
 function initNavigationTracking() {
 }
 
+function initDataAttributeTracking() {
+  // Also provides page-specific event delegation for legacy inline handlers
+  // that have been removed from HTML.
+
+  function initCardsFilter() {
+    // Cards page filter buttons are currently the only legacy inline handler.
+    var container = document.getElementById('cards-container');
+    if (!container) return;
+
+    var wrap = document.querySelector('section');
+
+    (document.body || document.documentElement).addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var btn = t.closest('[data-cards-filter]');
+      if (!btn) return;
+
+      e.preventDefault();
+      var category = btn.getAttribute('data-cards-filter') || 'all';
+
+      var cards = document.querySelectorAll('.card-item');
+      cards.forEach(function (card) {
+        card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+      });
+
+      var btns = document.querySelectorAll('[data-cards-filter]');
+      btns.forEach(function (b) {
+        var cat = b.getAttribute('data-cards-filter');
+        b.className = (cat === category) ? 'btn btn-primary' : 'btn btn-outline';
+      });
+    });
+  }
+
+  initCardsFilter();
+
+  // Generic event emitter for elements marked with:
+  // data-track="cta_click" (or any event type)
+  // data-event="..." (GA4 event name)
+  // data-category, data-label (optional)
+  // data-cta-name, data-product-* (optional)
+  try {
+    (document.body || document.documentElement).addEventListener('click', function (e) {
+      var el = e.target;
+      if (!el || !el.closest) return;
+      var trackEl = el.closest('[data-track][data-event]');
+      if (!trackEl) return;
+
+      // Allow navigation after pushing analytics
+      e.preventDefault();
+
+      var eventName = trackEl.getAttribute('data-event') || '';
+      if (eventName) {
+        var payload = {
+          event_action: trackEl.getAttribute('data-track') || '',
+          event_label: trackEl.getAttribute('data-label') || ''
+        };
+
+        var ctaName = trackEl.getAttribute('data-cta-name');
+        if (ctaName) payload.cta_name = ctaName;
+
+        var category = trackEl.getAttribute('data-category');
+        if (category) payload.cta_category = category;
+
+        // product attributes
+        var prodCat = trackEl.getAttribute('data-product-category');
+        if (prodCat) payload.product_category = prodCat;
+        var prodName = trackEl.getAttribute('data-product-name');
+        if (prodName) payload.product_name = prodName;
+        var priority = trackEl.getAttribute('data-cta-priority');
+        if (priority) payload.cta_priority = priority;
+
+        // Track after DOM update timing (0ms)
+        if (window.MDSTracking && typeof window.MDSTracking.trackAfterRender === 'function') {
+          window.MDSTracking.trackAfterRender(eventName, payload);
+        } else if (window.MDSTracking && typeof window.MDSTracking.track === 'function') {
+          window.MDSTracking.track(eventName, payload);
+        } else {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(Object.assign({ event: eventName }, payload));
+        }
+      }
+
+      var href = trackEl.getAttribute('href');
+      if (href) {
+        window.location.href = href;
+      } else {
+        // If no href, allow default by simulating click after tracking
+        trackEl.click();
+      }
+    });
+  } catch (e) {
+    // no-op
+  }
+}
+
 
 function initDownloadTracking() {
 }
+
 
 
 function initCTATracking() {
@@ -1522,7 +1650,15 @@ function init() {
   initQuizPage();
   initLoanCalculator();
   initOpenAccountPage();
-  initCompareFeature();
+
+  // CTA + nav click tracking (if data-track/data-event present)
+  initDataAttributeTracking();
+
+  // Compare init for non-compare pages.
+  // For compare.html, we rely on compare-system.js as the single source of truth.
+  if (window.__MDS_COMPARE_MODE__ !== 'compare-page') {
+    initCompareFeature();
+  }
   initVideoEngagement();
   initExperienceCenter();
   initNavigationTracking();
@@ -1534,4 +1670,112 @@ function init() {
 }
 
 
+
+// Legacy inline handlers fallback removed; keep data-action based handlers below.
+
 document.addEventListener('DOMContentLoaded', init);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inline-JS removal handlers (event delegation)
+// ─────────────────────────────────────────────────────────────────────────────
+
+(function () {
+  // Toggle search overlay (used by index.html)
+  (document.body || document.documentElement).addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+
+    var toggle = t.closest('[data-action="toggle-search"]');
+    if (toggle) {
+      e.preventDefault();
+      if (typeof window.toggleSearchOverlay === 'function') window.toggleSearchOverlay();
+      return;
+    }
+
+    var liveChat = t.closest('[data-action="live-chat"]');
+    if (liveChat) {
+      e.preventDefault();
+      alert('Demo: Live chat initiated. A representative will be with you shortly.');
+      return;
+    }
+
+    var supportSearch = t.closest('[data-action="support-search"]');
+    if (supportSearch) {
+      e.preventDefault();
+      var input = document.getElementById('support-search');
+      var q = input ? String(input.value || '').trim() : '';
+      if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+      return;
+    }
+
+    var loanCalc = t.closest('[data-action="calculate-loan"]');
+    if (loanCalc) {
+      e.preventDefault();
+      if (typeof window.calculateLoan === 'function') window.calculateLoan();
+      else {
+        var btn = document.querySelector('#loan-form .emi-calculate-btn');
+        if (btn && btn.click) btn.click();
+      }
+      return;
+    }
+
+    var riskSuggest = t.closest('[data-action="risk-profile-suggestion"]');
+    if (riskSuggest) {
+      e.preventDefault();
+      var knowledge = document.getElementById('risk-knowledge');
+      var timeline = document.getElementById('risk-timeline');
+      var profile = 'Balanced Growth';
+      if (knowledge && timeline) {
+        var k = knowledge.selectedIndex;
+        var tIdx = timeline.selectedIndex;
+        if (k === 0 && tIdx === 0) profile = 'Conservative';
+        else if (k === 2 && tIdx === 2) profile = 'Aggressive Growth';
+        else if (tIdx === 2) profile = 'Growth';
+        else if (tIdx === 0) profile = 'Conservative';
+      }
+      alert('Your suggested profile is: ' + profile);
+      return;
+    }
+  });
+
+  // Contact submit
+  (document.body || document.documentElement).addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || !form.matches) return;
+
+    if (form.matches('form[data-action="contact-submit"]')) {
+      e.preventDefault();
+
+      var topic = document.getElementById('contact-topic');
+      // keep existing validation/UX from handleContactSubmit (which may still exist)
+      var name = document.getElementById('contact-name');
+      var email = document.getElementById('contact-email');
+      var message = document.getElementById('contact-message');
+
+      // simple client-side required checks to preserve UX
+      var hasError = false;
+      [name, email, topic, message].forEach(function (field) {
+        if (field && field.required && !String(field.value || '').trim()) hasError = true;
+      });
+      if (hasError) return;
+
+      alert('Thank you! Your message has been sent. We will respond within 24 hours.');
+      if (typeof form.reset === 'function') form.reset();
+      return;
+    }
+
+    // Overlay search submit
+    if (form.matches('form[data-action="submit-search"]')) {
+      e.preventDefault();
+      if (typeof window.submitSearch === 'function') window.submitSearch(e);
+      else {
+        var input = document.getElementById('overlay-search-input');
+        var searchTerm = input ? input.value.trim() : '';
+        if (!searchTerm) return;
+        window.location.href = 'search.html?' + new URLSearchParams({ q: searchTerm }).toString();
+      }
+    }
+  }, true);
+})();
+
+

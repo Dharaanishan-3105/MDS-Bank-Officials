@@ -70,7 +70,7 @@
           <p>Manage your accounts, monitor activity, and access documents from one polished banking workspace.</p>
         </div>
         <div class="dashboard-hero-actions">
-          <button class="btn btn-primary" id="transfer-money-btn" onclick="document.getElementById('transfer-modal').style.display='block'">Transfer Money</button>
+          <button class="btn btn-primary" id="transfer-money-btn" data-transfer-modal-open type="button">Transfer Money</button>
 <a href="/assets/files/MDS_Bank_Statement_May2026.pdf" class="btn btn-outline" download>&#128196; Download Statement</a>
         </div>
       </div>
@@ -107,7 +107,7 @@
           <h1 style="color:var(--text-light); margin-top:0.25rem; font-size:1.8rem;">Alex Jordan</h1>
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <button class="btn btn-primary" id="transfer-money-btn" onclick="document.getElementById('transfer-modal').style.display='block'">
+          <button class="btn btn-primary" id="transfer-money-btn" data-transfer-modal-open type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M12 5v14M5 12h14"/></svg>
             Transfer Money
           </button>
@@ -246,12 +246,12 @@
       <div class="dash-card mb-4">
         <h3 style="margin-bottom:1rem; font-size:1rem;">Quick Actions</h3>
         <div class="dash-quick-actions">
-          <button class="dash-action-btn" onclick="alert('Demo: Bill Pay')"><span>&#128176;</span>Pay Bills</button>
-          <button class="dash-action-btn" onclick="alert('Demo: Deposit')"><span>&#128179;</span>Deposit Check</button>
-          <button class="dash-action-btn" onclick="alert('Demo: Zelle')"><span>&#128176;</span>Send via Zelle</button>
-          <button class="dash-action-btn" onclick="alert('Demo: Invest')"><span>&#128200;</span>Invest</button>
+          <button class="dash-action-btn" data-dashboard-demo-action="bill_pay" type="button"><span>&#128176;</span>Pay Bills</button>
+          <button class="dash-action-btn" data-dashboard-demo-action="deposit" type="button"><span>&#128179;</span>Deposit Check</button>
+          <button class="dash-action-btn" data-dashboard-demo-action="zelle" type="button"><span>&#128176;</span>Send via Zelle</button>
+          <button class="dash-action-btn" data-dashboard-demo-action="invest" type="button"><span>&#128200;</span>Invest</button>
 <a href="/assets/files/MDS_Bank_Statement_May2026.pdf" class="dash-action-btn" download><span>&#128196;</span>Statements</a>
-          <button class="dash-action-btn" onclick="alert('Demo: Settings')"><span>&#9881;</span>Settings</button>
+          <button class="dash-action-btn" data-dashboard-demo-action="settings" type="button"><span>&#9881;</span>Settings</button>
         </div>
       </div>
 
@@ -344,40 +344,17 @@
     <div style="background:white; max-width:500px; margin:10vh auto; padding:2rem; border-radius:16px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
         <h2>Transfer Money</h2>
-        <button onclick="document.getElementById('transfer-modal').style.display='none'" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&#215;</button>
+        <button data-transfer-modal-close style="background:none; border:none; font-size:1.5rem; cursor:pointer;" aria-label="Close transfer modal" type="button">&#215;</button>
       </div>
       <div class="form-group"><label class="form-label">From Account</label><select class="form-control"><option>Everyday Checking (...4092)</option></select></div>
       <div class="form-group"><label class="form-label">To Account</label><select class="form-control"><option>High-Yield Savings (...1184)</option></select></div>
       <div class="form-group"><label class="form-label">Amount ($)</label><input type="number" class="form-control" id="transfer-amount" placeholder="0.00"></div>
-      <button class="btn btn-primary" id="review-transfer-btn" style="width:100%;" onclick="handleTransfer()">Review Transfer</button>
+      <button class="btn btn-primary" id="review-transfer-btn" style="width:100%;" data-transfer-modal-review type="button">Review Transfer</button>
     </div>
   </div>
 
   <script src="script.js"></script>
-  <script>
-    function handleTransfer() {
-      var amt = document.getElementById('transfer-amount');
-
-      alert('Demo: Transfer of $' + (amt ? amt.value : '0') + ' initiated successfully.');
-      document.getElementById('transfer-modal').style.display = 'none';
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      var ctx = document.getElementById('spendingChart');
-      if (ctx) {
-        new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Housing', 'Food & Dining', 'Transportation', 'Entertainment', 'Shopping', 'Utilities'],
-            datasets: [{ data: [35, 22, 15, 10, 12, 6], backgroundColor: ['#1B4F72', '#00B894', '#D4A745', '#E74C3C', '#8E44AD', '#3498DB'], borderWidth: 0, borderRadius: 4 }]
-          },
-          options: {
-            responsive: true, maintainAspectRatio: false, cutout: '65%',
-            plugins: { legend: { position: 'bottom', labels: { font: { family: "'DM Sans', sans-serif", size: 12 }, padding: 16, usePointStyle: true, pointStyleWidth: 10 } } }
-          }
-        });
-      }
-    });
-  </script>
+  <!-- Inline demo logic removed: handled via script.js event delegation -->
   <footer>
     <div class="footer-grid">
       <div class="footer-col">

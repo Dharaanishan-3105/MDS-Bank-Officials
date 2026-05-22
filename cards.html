@@ -64,9 +64,10 @@
 
     <section>
       <div style="display:flex; justify-content:center; gap:1rem; margin-bottom:3rem; flex-wrap:wrap;">
-        <button class="btn btn-primary" id="filter-all" onclick="filterCards('all')">All Cards</button>
-        <button class="btn btn-outline" id="filter-rewards" onclick="filterCards('rewards')">Cashback & Rewards</button>
-        <button class="btn btn-outline" id="filter-travel" onclick="filterCards('travel')">Travel</button>
+        <button class="btn btn-primary" id="filter-all" data-cards-filter="all" type="button">All Cards</button>
+        <button class="btn btn-outline" id="filter-rewards" data-cards-filter="rewards" type="button">Cashback & Rewards</button>
+        <button class="btn btn-outline" id="filter-travel" data-cards-filter="travel" type="button">Travel</button>
+
       </div>
       <div class="grid-3" id="cards-container">
         <div class="feature-card card-item reveal" data-category="rewards" style="text-align:left;">
@@ -223,21 +224,14 @@
     </div>
   </footer>
   <script src="script.js"></script>
-  <script>
-    function filterCards(category) {
-      var cards = document.querySelectorAll('.card-item');
-      cards.forEach(function(card) {
-        card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
-      });
-      var btns = document.querySelectorAll('button[onclick^="filterCards"]');
-      btns.forEach(function(btn) {
-        btn.className = btn.getAttribute('onclick').includes(category) ? 'btn btn-primary' : 'btn btn-outline';
-      });
-
-    }
-  </script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
