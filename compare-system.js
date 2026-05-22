@@ -73,7 +73,7 @@ window.CompareSystem = (function () {
     saveToStorage();
     render();
     toast('Added to comparison', 'success');
-    track('compare_add', { product_name: name, product_category: category });
+    track('compare_added', { product_name: name, product_category: category });
     return true;
   }
 
@@ -85,7 +85,7 @@ window.CompareSystem = (function () {
     saveToStorage();
     render();
     toast('Removed from comparison', 'info');
-    track('compare_remove', { product_name: removed.name, product_category: removed.category });
+    track('compare_removed', { product_name: removed.name, product_category: removed.category });
     return true;
   }
 
@@ -221,7 +221,8 @@ window.CompareSystem = (function () {
       if (compareBtn) {
         e.preventDefault();
         if (state.selectedProducts.length >= 2) {
-          track('compare_view', { products: state.selectedProducts.length });
+          track('compare_started', { products: state.selectedProducts.length });
+          track('compare_completed', { products: state.selectedProducts.length });
           document.querySelector('.compare-output')?.scrollIntoView({ behavior: 'smooth' });
         }
         return;
@@ -250,7 +251,6 @@ window.CompareSystem = (function () {
       window.dataLayer.push(eventData);
     } catch (e) {}
 
-    console.log('[CompareTrack]', eventName, 'count=' + eventData.compare_count);
   }
 
   // ─────────────────────────────────────────────────────────────────────────

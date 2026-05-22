@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="premium-dashboard.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P9NJ362M"
@@ -82,12 +82,12 @@
           <span style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted);">Menu</span>
         </div>
         <ul class="sidebar-menu">
-          <li><a href="#" class="active" id="sidebar-overview">&#128200; Overview</a></li>
-          <li><a href="#" id="sidebar-accounts">&#128179; Accounts</a></li>
-          <li><a href="#" id="sidebar-transfers">&#128176; Transfers & Pay</a></li>
-          <li><a href="#" id="sidebar-cards">&#128179; My Cards</a></li>
-          <li><a href="#" id="sidebar-statements">&#128196; Statements</a></li>
-          <li><a href="#" id="sidebar-settings">&#9881; Settings</a></li>
+          <li><button type="button" class="active" id="sidebar-overview">&#128200; Overview</button></li>
+          <li><button type="button" id="sidebar-accounts">&#128179; Accounts</button></li>
+          <li><button type="button" id="sidebar-transfers">&#128176; Transfers & Pay</button></li>
+          <li><button type="button" id="sidebar-cards">&#128179; My Cards</button></li>
+          <li><button type="button" id="sidebar-statements">&#128196; Statements</button></li>
+          <li><button type="button" id="sidebar-settings">&#9881; Settings</button></li>
         </ul>
 
         <div style="padding:1.5rem 2rem 0.5rem; margin-top:1rem;">
@@ -99,15 +99,15 @@
         </ul>
       </aside>
 
-      <main class="main-content">
+      <div class="main-content" role="region" aria-label="Dashboard account overview">
         <!-- Welcome Header -->
       <div class="dash-header">
         <div>
           <span style="color:var(--text-muted); font-size:0.9rem;">Good afternoon,</span>
-          <h1 style="color:var(--text-light); margin-top:0.25rem; font-size:1.8rem;">Alex Jordan</h1>
+          <h2 style="color:var(--text-light); margin-top:0.25rem; font-size:1.8rem;">Alex Jordan</h2>
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <button class="btn btn-primary" id="transfer-money-btn" data-transfer-modal-open type="button">
+          <button class="btn btn-primary" id="transfer-money-header-btn" data-transfer-modal-open type="button">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:6px;"><path d="M12 5v14M5 12h14"/></svg>
             Transfer Money
           </button>
@@ -272,7 +272,7 @@
         <div class="dash-card">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
             <h3 style="font-size:1rem;">Recent Transactions</h3>
-            <a href="#" id="view-all-transactions" style="color:var(--primary); font-weight:500; text-decoration:none; font-size:0.85rem;">View All &rarr;</a>
+            <button type="button" id="view-all-transactions" style="color:var(--primary); font-weight:500; text-decoration:none; font-size:0.85rem; background:none; border:0; cursor:pointer; padding:0;">View All &rarr;</button>
           </div>
           <div class="dash-transactions">
             <div class="dash-tx-item">
@@ -336,7 +336,7 @@
           </div>
         </div>
       </div>
-    </main>
+      </div>
   </div>
 
   <!-- Transfer Modal -->
@@ -353,7 +353,7 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
   <!-- Inline demo logic removed: handled via script.js event delegation -->
   <footer>
     <div class="footer-grid">

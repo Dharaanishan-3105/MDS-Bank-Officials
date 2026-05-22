@@ -774,17 +774,17 @@ function track(eventName, params) {
       return false;
     }
 
-    // compare_view must fire ONLY when panel/table opens (i.e., we render the table here)
+    // compare_started/completed fire only after the table is rendered from current state.
     renderComparisonTableFromStore();
     updateCompareSelectionUIFromStore();
-    track('compare_view', buildCommonTrackingParams({
+    track('compare_started', buildCommonTrackingParams({
       compare_method: 'submit',
       compare_source: 'ui',
       product_name: selected[0] ? selected[0].name : '',
       product_category: selected[0] ? selected[0].category : ''
     }));
 
-    track('compare_submit', buildCommonTrackingParams({
+    track('compare_completed', buildCommonTrackingParams({
       compare_method: 'click',
       compare_source: 'ui'
     }));
@@ -813,7 +813,7 @@ function track(eventName, params) {
       if (removed && removed.ok) {
         renderComparisonTableFromStore();
         updateCompareSelectionUIFromStore();
-        track('compare_remove', buildCommonTrackingParams({
+        track('compare_removed', buildCommonTrackingParams({
           product_name: removed.product.name,
           product_category: removed.product.category,
           compare_count: String(store.getSelected().length),
@@ -853,7 +853,7 @@ function track(eventName, params) {
     renderComparisonTableFromStore();
     updateCompareSelectionUIFromStore();
 
-    track('compare_add', buildCommonTrackingParams({
+    track('compare_added', buildCommonTrackingParams({
       product_name: res.product.name,
       product_category: res.product.category,
       compare_count: String(selectedBefore + 1),
@@ -998,6 +998,154 @@ function getSearchQuery() {
   return params.get('q') || '';
 }
 
+window.searchIndex = window.searchIndex || [
+  {
+    title: 'Savings and Checking Accounts',
+    desc: 'Open digital savings, salary, current, and senior citizen accounts with mobile banking access.',
+    keywords: 'accounts account savings checking salary current senior citizen digital banking open account zero balance debit',
+    category: 'Accounts',
+    url: 'accounts.html'
+  },
+  {
+    title: 'Credit and Debit Cards',
+    desc: 'Compare cashback, travel, platinum, classic, credit, and debit cards with rewards and controls.',
+    keywords: 'cards card credit debit cashback travel platinum rewards annual fee fraud protection limits controls',
+    category: 'Cards',
+    url: 'cards.html'
+  },
+  {
+    title: 'Card Services and Controls',
+    desc: 'Activate cards, block lost cards, request replacements, set spending limits, and manage travel notifications.',
+    keywords: 'card services cards activate block lost replacement spending limits controls travel notification secure',
+    category: 'Cards',
+    url: 'card-services.html'
+  },
+  {
+    title: 'Loans and Mortgages',
+    desc: 'Explore personal, home, education, vehicle, and business loans with EMI support and eligibility guidance.',
+    keywords: 'loans loan mortgage personal home education vehicle business emi interest financing borrow',
+    category: 'Loans',
+    url: 'loans.html'
+  },
+  {
+    title: 'Loan Calculator',
+    desc: 'Estimate monthly EMI payments for loan amount, interest rate, and tenure.',
+    keywords: 'loan calculator emi payment interest tenure monthly loans estimate',
+    category: 'Tools',
+    url: 'loan-calculator.html'
+  },
+  {
+    title: 'Business Banking',
+    desc: 'Business current accounts, merchant accounts, payroll tools, payment support, and relationship manager access.',
+    keywords: 'business banking merchant payroll current account corporate payment sme startup relationship manager',
+    category: 'Business Banking',
+    url: 'business-banking.html'
+  },
+  {
+    title: 'Investments',
+    desc: 'Investment options, risk profile tools, market resources, and long-term planning support.',
+    keywords: 'investments investing market risk portfolio trading research planning wealth',
+    category: 'Investments',
+    url: 'investments.html'
+  },
+  {
+    title: 'Security Center',
+    desc: 'Fraud protection, safe digital banking practices, card security, and account safety resources.',
+    keywords: 'security fraud protection safe banking phishing password otp card controls account safety secure',
+    category: 'Security',
+    url: 'security.html'
+  },
+  {
+    title: 'Support Center',
+    desc: 'Find help articles, FAQs, live chat, contact options, guides, and banking support resources.',
+    keywords: 'support help faq faqs articles guides chat service contact questions banking',
+    category: 'Support',
+    url: 'support.html'
+  },
+  {
+    title: 'Contact MDS Bank',
+    desc: 'Contact customer support, email the banking team, find headquarters details, and review service hours.',
+    keywords: 'contact support phone email headquarters hours customer service help',
+    category: 'Support',
+    url: 'contact.html'
+  },
+  {
+    title: 'Branch and ATM Locator',
+    desc: 'Search MDS Bank locations for branches, ATMs, cash deposit support, and nearby banking services.',
+    keywords: 'locator branch atm locations city cash deposit nearby services banking',
+    category: 'Locations',
+    url: 'locator.html'
+  },
+  {
+    title: 'Rates',
+    desc: 'Review demo banking rates for savings, cards, loans, and deposit products.',
+    keywords: 'rates interest savings loans cards deposits apr apy',
+    category: 'Rates',
+    url: 'rates.html'
+  },
+  {
+    title: 'Digital Banking Dashboard',
+    desc: 'View balances, transactions, card controls, transfers, alerts, analytics, and digital banking activity.',
+    keywords: 'dashboard digital banking balances transactions transfers card controls alerts analytics login',
+    category: 'Digital Banking',
+    url: 'dashboard.html'
+  },
+  {
+    title: 'Open Account',
+    desc: 'Start a demo application for a new MDS Bank account with electronic disclosures.',
+    keywords: 'open account apply application savings checking digital onboarding kyc',
+    category: 'Accounts',
+    url: 'open-account.html'
+  },
+  {
+    title: 'Apply Now',
+    desc: 'Submit a demo application for bank products, cards, loans, or accounts.',
+    keywords: 'apply application cards loans accounts banking submit eligibility',
+    category: 'Applications',
+    url: 'apply.html'
+  },
+  {
+    title: 'Product Quiz',
+    desc: 'Answer a few questions to find a recommended banking product.',
+    keywords: 'quiz recommend product accounts cards loans savings business',
+    category: 'Tools',
+    url: 'quiz.html'
+  }
+];
+
+function normalizeSearchText(value) {
+  return String(value || '').toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function escapeSearchHtml(value) {
+  return String(value || '').replace(/[&<>"']/g, function (char) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[char];
+  });
+}
+
+function trackSearchEvent(query, resultCount) {
+  var payload = {
+    search_term: query,
+    result_count: resultCount,
+    result_status: resultCount > 0 ? 'with_results' : 'no_results'
+  };
+
+  if (window.MDSTracking && typeof window.MDSTracking.trackAfterRender === 'function') {
+    window.MDSTracking.trackAfterRender('view_search_results', payload);
+  } else {
+    window.dataLayer = window.dataLayer || [];
+    setTimeout(function () {
+      window.dataLayer.push(Object.assign({ event: 'view_search_results' }, payload));
+    }, 0);
+  }
+}
+
 window.performSearch = function () {
   var input = document.getElementById('search-page-input');
   var query = input ? String(input.value || '').trim() : '';
@@ -1017,13 +1165,12 @@ window.performSearch = function () {
     return;
   }
 
-
-  var queryLower = query.toLowerCase();
+  var queryLower = normalizeSearchText(query);
   var terms = queryLower.split(/\s+/).filter(function (term) { return term.length > 1; });
   var index = window.searchIndex || [];
 
   var results = index.filter(function (item) {
-    var text = (item.title + ' ' + item.desc + ' ' + item.keywords + ' ' + item.category).toLowerCase();
+    var text = normalizeSearchText([item.title, item.desc, item.keywords, item.category].join(' '));
     return terms.every(function (term) {
       return text.indexOf(term) !== -1;
     });
@@ -1039,12 +1186,12 @@ window.performSearch = function () {
     summary.textContent = results.length + ' result' + (results.length === 1 ? '' : 's') + ' for "' + query + '"';
     noResults.style.display = 'none';
     container.innerHTML = results.map(function (item) {
-      return '<a href="' + item.url + '" class="search-result-item" style="display:block; padding:1.5rem; margin-bottom:1rem; background:var(--light-card); border-radius:16px; border:1px solid var(--border-light); text-decoration:none; color:var(--text-light); transition:all 0.3s var(--ease);">' +
+      return '<a href="' + escapeSearchHtml(item.url) + '" class="search-result-item" data-track="search_result_click" data-event="search_result_click" data-category="site_search" data-label="' + escapeSearchHtml(item.title) + '" style="display:block; padding:1.5rem; margin-bottom:1rem; background:var(--light-card); border-radius:16px; border:1px solid var(--border-light); text-decoration:none; color:var(--text-light); transition:all 0.3s var(--ease);">' +
         '<div style="display:flex; justify-content:space-between; gap:1rem; align-items:flex-start;">' +
         '<div style="flex:1;">' +
-        '<span style="font-size:0.75rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">' + item.category + '</span>' +
-        '<h3 style="margin:0.75rem 0 0.5rem; font-size:1.15rem;">' + item.title + '</h3>' +
-        '<p style="margin:0; color:var(--text-muted); font-size:0.95rem; line-height:1.6;">' + item.desc + '</p>' +
+        '<span style="font-size:0.75rem; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">' + escapeSearchHtml(item.category) + '</span>' +
+        '<h3 style="margin:0.75rem 0 0.5rem; font-size:1.15rem;">' + escapeSearchHtml(item.title) + '</h3>' +
+        '<p style="margin:0; color:var(--text-muted); font-size:0.95rem; line-height:1.6;">' + escapeSearchHtml(item.desc) + '</p>' +
         '</div>' +
         '<span style="font-size:1.5rem; color:var(--primary);">→</span>' +
         '</div>' +
@@ -1053,7 +1200,7 @@ window.performSearch = function () {
   }
 
   var count = results.length;
-  var status = count > 0 ? 'with_result' : 'without_result';
+  trackSearchEvent(query, count);
 
 };
 
@@ -1061,11 +1208,47 @@ window.performSearch = function () {
 function initSearchPage() {
   var searchInput = document.getElementById('search-page-input');
   if (!searchInput) return;
+  var form = document.getElementById('searchForm');
+  var searchDebounceTimer = null;
+
+  function scheduleSearch() {
+    if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(function () {
+      window.performSearch();
+    }, 300);
+  }
+
   var query = getSearchQuery();
   if (query) {
     searchInput.value = query;
     window.performSearch();
+  } else {
+    window.performSearch();
   }
+
+  if (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var nextQuery = String(searchInput.value || '').trim();
+      var url = new URL(window.location.href);
+      if (nextQuery) url.searchParams.set('q', nextQuery);
+      else url.searchParams.delete('q');
+      window.history.replaceState({}, '', url.pathname + url.search);
+      scheduleSearch();
+    });
+  }
+
+  searchInput.addEventListener('input', function () {
+    var url = new URL(window.location.href);
+    if (!String(searchInput.value || '').trim()) {
+      url.searchParams.delete('q');
+      window.history.replaceState({}, '', url.pathname);
+    } else {
+      url.searchParams.set('q', String(searchInput.value || '').trim());
+      window.history.replaceState({}, '', url.pathname + url.search);
+    }
+    scheduleSearch();
+  });
 }
 
 function initLocatorFiltering() {
@@ -1367,8 +1550,12 @@ function initMobileMenu() {
   var mobileToggle = document.querySelector('.mobile-toggle');
   var navLinks = document.querySelector('.nav-links');
   if (mobileToggle && navLinks) {
+    mobileToggle.setAttribute('aria-expanded', 'false');
+    mobileToggle.setAttribute('aria-controls', 'primary-navigation');
+    if (!navLinks.id) navLinks.id = 'primary-navigation';
     mobileToggle.addEventListener('click', function () {
       navLinks.classList.toggle('active');
+      mobileToggle.setAttribute('aria-expanded', navLinks.classList.contains('active') ? 'true' : 'false');
     });
   }
 }
@@ -1376,14 +1563,42 @@ function initMobileMenu() {
 
 function initAccordions() {
   var items = document.querySelectorAll('.accordion-item');
-  items.forEach(function (item) {
+  items.forEach(function (item, index) {
     var header = item.querySelector('.accordion-header');
+    var content = item.querySelector('.accordion-content');
     if (!header) return;
-    header.addEventListener('click', function () {
+    if (!header.hasAttribute('tabindex')) header.setAttribute('tabindex', '0');
+    header.setAttribute('role', 'button');
+    header.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+    if (content) {
+      if (!content.id) content.id = 'accordion-content-' + index;
+      header.setAttribute('aria-controls', content.id);
+    }
+
+    function toggleAccordion() {
       items.forEach(function (other) {
-        if (other !== item) other.classList.remove('active');
+        if (other !== item) {
+          other.classList.remove('active');
+          var otherHeader = other.querySelector('.accordion-header');
+          if (otherHeader) otherHeader.setAttribute('aria-expanded', 'false');
+        }
       });
       item.classList.toggle('active');
+      header.setAttribute('aria-expanded', item.classList.contains('active') ? 'true' : 'false');
+      if (window.MDSTracking && item.classList.contains('active')) {
+        window.MDSTracking.trackAfterRender('faq_interaction', {
+          faq_category: header.getAttribute('data-faq-category') || '',
+          faq_question: header.textContent.replace('+', '').trim()
+        });
+      }
+    }
+
+    header.addEventListener('click', toggleAccordion);
+    header.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleAccordion();
+      }
     });
   });
 }
@@ -1528,6 +1743,24 @@ function initVideoEngagement() {
 }
 
 function initNavigationTracking() {
+  (document.body || document.documentElement).addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || !target.closest) return;
+    var link = target.closest('a[href]');
+    if (!link) return;
+
+    var href = link.getAttribute('href') || '';
+    var isExternal = /^https?:\/\//i.test(href) && link.hostname !== window.location.hostname;
+    var section = link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : (link.getAttribute('data-section') || link.getAttribute('data-page-section') || '');
+
+    if (window.MDSTracking) {
+      window.MDSTracking.trackAfterRender(isExternal ? 'outbound_link_click' : 'navigation_click', {
+        link_text: link.textContent.trim(),
+        link_url: link.href,
+        section: section
+      });
+    }
+  });
 }
 
 function initDataAttributeTracking() {
@@ -1574,17 +1807,20 @@ function initDataAttributeTracking() {
     (document.body || document.documentElement).addEventListener('click', function (e) {
       var el = e.target;
       if (!el || !el.closest) return;
-      var trackEl = el.closest('[data-track][data-event]');
+      var trackEl = el.closest('[data-track][data-event], a[data-cta-name], button[data-cta-name]');
       if (!trackEl) return;
 
       // Allow navigation after pushing analytics
       e.preventDefault();
 
-      var eventName = trackEl.getAttribute('data-event') || '';
+      var eventName = trackEl.getAttribute('data-event') || 'cta_click';
       if (eventName) {
         var payload = {
-          event_action: trackEl.getAttribute('data-track') || '',
-          event_label: trackEl.getAttribute('data-label') || ''
+          event_action: trackEl.getAttribute('data-track') || trackEl.getAttribute('data-interaction-type') || 'click',
+          event_label: trackEl.getAttribute('data-label') || trackEl.textContent.trim(),
+          section: trackEl.getAttribute('data-section') || trackEl.getAttribute('data-page-section') || '',
+          component: trackEl.getAttribute('data-component') || '',
+          position: trackEl.getAttribute('data-position') || ''
         };
 
         var ctaName = trackEl.getAttribute('data-cta-name');
@@ -1613,11 +1849,10 @@ function initDataAttributeTracking() {
       }
 
       var href = trackEl.getAttribute('href');
-      if (href) {
+      if (href && trackEl.getAttribute('target') === '_blank') {
+        window.open(href, '_blank', 'noopener');
+      } else if (href) {
         window.location.href = href;
-      } else {
-        // If no href, allow default by simulating click after tracking
-        trackEl.click();
       }
     });
   } catch (e) {
@@ -1627,6 +1862,18 @@ function initDataAttributeTracking() {
 
 
 function initDownloadTracking() {
+  (document.body || document.documentElement).addEventListener('click', function (event) {
+    var target = event.target;
+    if (!target || !target.closest) return;
+    var link = target.closest('a[download], a[href$=".pdf"]');
+    if (!link) return;
+    var payload = {
+      file_name: (link.getAttribute('download') || link.getAttribute('href') || '').split('/').pop(),
+      link_url: link.href,
+      section: link.getAttribute('data-section') || link.getAttribute('data-page-section') || ''
+    };
+    if (window.MDSTracking) window.MDSTracking.trackAfterRender('file_download', payload);
+  });
 }
 
 
@@ -1636,6 +1883,34 @@ function initCTATracking() {
 
 
 function initFormFocusTracking() {
+  var startedForms = {};
+  (document.body || document.documentElement).addEventListener('focusin', function (event) {
+    var field = event.target;
+    if (!field || !field.closest) return;
+    var form = field.closest('form');
+    if (!form) return;
+    var formName = form.getAttribute('data-form-name') || form.id || form.getAttribute('name') || 'unnamed_form';
+    if (startedForms[formName]) return;
+    startedForms[formName] = true;
+    if (window.MDSTracking) {
+      window.MDSTracking.trackAfterRender('form_start', {
+        form_name: formName,
+        form_id: form.id || ''
+      });
+    }
+  });
+
+  (document.body || document.documentElement).addEventListener('submit', function (event) {
+    var form = event.target;
+    if (!form || !form.matches) return;
+    var formName = form.getAttribute('data-form-name') || form.id || form.getAttribute('name') || 'unnamed_form';
+    if (window.MDSTracking) {
+      window.MDSTracking.trackAfterRender('form_submit', {
+        form_name: formName,
+        form_id: form.id || ''
+      });
+    }
+  }, true);
 }
 
 
@@ -1660,7 +1935,9 @@ function init() {
     initCompareFeature();
   }
   initVideoEngagement();
-  initExperienceCenter();
+  if (typeof window.initExperienceCenter === 'function') {
+    window.initExperienceCenter();
+  }
   initNavigationTracking();
 
   initDownloadTracking();
@@ -1777,5 +2054,3 @@ document.addEventListener('DOMContentLoaded', init);
     }
   }, true);
 })();
-
-
